@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react'
+import SearchList from './components/SearchList'
+import Form from './components/Form'
+import Random from './components/Random'
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data : []
+    };
+    this.normalizeData = (rawData) => {
+      return rawData[1].map(function(title, index) {
+        return {
+          title: title,
+          paragraph: rawData[2][index],
+          link: rawData[3][index]
+        }
+      })
+    }
+    this.addNewResult = (queryResult) => {
+      if(queryResult === null) {
+        this.setState({data: []})
+        return;
+      }
+      const searchResult = this.normalizeData(queryResult)
+      this.setState({ data: searchResult });
+    }
+  };
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  render() {
+    return (
+      <div className='container'>
+        <h1>Kevin Bacon's 7 Degrees of Freedom</h1>
+        <a ref="noopener noreferrer" target ="_blank" href="https://en.wikipedia.org/wiki/Special:Random"><i className="fa fa-random" aria-hidden="true"></i>Search</a>
+        <Form onChange={this.addNewResult} />
+        <Random />
+        <SearchList query={this.state.data} />
+      </div>
+    )
+  }
 }
 
 export default App;
