@@ -18,17 +18,4 @@ const getWikis = () => {
   });
 }
 
-// function gotContent(data) {
-//     let page = data.query.pages;
-//     let pageId = Object.keys(data.query.pages)[0];
-//     console.log(pageId);
-//     let content = page[pageId].revisions[0]['*'];
-//     console.log(content);
-//     let wordRegex = /\b\w{4,}\b/g;
-//     let words = content.match(wordRegex);
-//     let word = Math.random(words);
-//     goWiki(word);
-//     console.log(word);
-//   }
-// this.getWikis()
 export default getWikis

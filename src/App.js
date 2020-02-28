@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import SearchList from './components/SearchList'
 import Form from './components/Form'
 import GetStarted from './components/GetStarted';
+import SideBar from './components/SideBar'
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +36,7 @@ class App extends React.Component {
     return (
       <div className='container'>
         <h1>Kevin Bacon's 7 Degrees of Freedom</h1>
-        {/* <a ref="noopener noreferrer" target ="_blank" href="https://en.wikipedia.org/wiki/Special:Random"><i className="fa fa-random" aria-hidden="true"></i>Search</a> */}
+        <SideBar />
         <Form onChange={this.addNewResult} />
         <SearchList query={this.state.data} />
         <GetStarted/>
