@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-
+import getWikis from '../helpers/readPages'
 class Random extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +17,7 @@ class Random extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.handleClick}>Click</button>
+        <button onClick={getWikis}>Click</button>
       </div>
     )
   }

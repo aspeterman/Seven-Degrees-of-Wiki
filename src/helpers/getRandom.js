@@ -8,7 +8,7 @@ let userInput;
 let counter = 0;
 
 function setup() {
-  userInput = document.getElementById('app');
+  userInput = document.getElementById('userinput');
   userInput.onchange(startSearch);
   goWiki(userInput.value());
 

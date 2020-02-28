@@ -5,7 +5,7 @@ var options={
     uri:'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Africa/daily/2017042700/2018051700',
     json:true
 };
-module.exports.getWikis = () => {
+const getWikis = () => {
   rp(options)
       .then(function(parseBody){
       var data=[];
@@ -30,4 +30,5 @@ module.exports.getWikis = () => {
 //     goWiki(word);
 //     console.log(word);
 //   }
-this.getWikis()
+// this.getWikis()
+export default getWikis
