@@ -17,7 +17,7 @@ class Random extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={getWikis}>Click</button>
+        <button onClick={this.handleClick}>Click</button>
       </div>
     )
   }

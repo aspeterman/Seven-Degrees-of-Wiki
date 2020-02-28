@@ -26,6 +26,9 @@ class App extends React.Component {
       const searchResult = this.normalizeData(queryResult)
       this.setState({ data: searchResult });
     }
+    this.setStartPage = (start) => {
+      this.setState({page: start})
+    }
   };
 
   render() {
@@ -35,7 +38,7 @@ class App extends React.Component {
         <GetStarted/>
         <a ref="noopener noreferrer" target ="_blank" href="https://en.wikipedia.org/wiki/Special:Random"><i className="fa fa-random" aria-hidden="true"></i>Search</a>
         <Form onChange={this.addNewResult} />
-        <Random />
+        <Random onClick={this.setStartPage}/>
         <SearchList query={this.state.data} />
       </div>
     )
