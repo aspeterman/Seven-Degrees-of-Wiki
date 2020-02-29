@@ -89,7 +89,7 @@ export default function DetailedExpansionPanel() {
         </ExpansionPanelDetails>
         <Divider />
         <ExpansionPanelActions>
-          <Button size="small" onClick={console.log("stop!")}>Cancel</Button>
+          <Button size="small" >Cancel</Button>
           <Button size="small" color="primary" onClick={renderStartingPage}>
             Save
           </Button>

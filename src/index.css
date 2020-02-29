@@ -16,5 +16,8 @@ code {
 #wiki {
   padding: 20px;
   border-radius: 10px;
-  animation: ease-in;
+}
+
+#sidebar {
+
 }

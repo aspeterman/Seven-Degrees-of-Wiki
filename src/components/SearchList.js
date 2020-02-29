@@ -1,6 +1,5 @@
 const React = require('react');
 const Search = require('./Search');
-const Form = require('./Form')
 
 const SearchList = (props) => {
   return (

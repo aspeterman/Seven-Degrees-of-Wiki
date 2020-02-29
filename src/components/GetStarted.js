@@ -37,23 +37,23 @@ class GetStarted extends React.Component {
 //     document.getElementById('end').innerHTML = end })
 //   )}
 
-  renderStartingPage() {
-    if(!document.getElementById('origin').textContent) alert('generate data first')
-    else {
-    axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${document.getElementById('origin').innerText}`, {
-    // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&title=hello&text=%7B%7BProject%3ASandbox%7D%7D&prop=text&contentmodel=wikitext`, {
-      params: {
-        datatype: 'jsonp',
-        origin: '*'
-      }
-    })
-    .then(response => response)
-    .then(data => {
-      const resData = Object.values(data.data.parse.text);
-      console.log(resData);
-      document.getElementById('wiki').innerHTML = resData;
-    })
-  }}
+  // renderStartingPage() {
+  //   if(!document.getElementById('origin').textContent) alert('generate data first')
+  //   else {
+  //   axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${document.getElementById('origin').innerText}`, {
+  //   // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&title=hello&text=%7B%7BProject%3ASandbox%7D%7D&prop=text&contentmodel=wikitext`, {
+  //     params: {
+  //       datatype: 'jsonp',
+  //       origin: '*'
+  //     }
+  //   })
+  //   .then(response => response)
+  //   .then(data => {
+  //     const resData = Object.values(data.data.parse.text);
+  //     console.log(resData);
+  //     document.getElementById('wiki').innerHTML = resData;
+  //   })
+  // }}
 
   render(){
     return(
@@ -61,14 +61,6 @@ class GetStarted extends React.Component {
         {/* <button class="btn btn-info" onClick={this.handleClick}>Get Your Objective</button>
         <button class="btn btn-info" onClick={this.renderStartingPage}>Get Rendered</button> */}
         <div id="sidebar">
-          <div>
-            <span>Starting Point:</span>
-            <span id="origin"></span>
-          </div>
-          <div >
-            <span>Ending Point:</span>
-            <span id="end"></span>
-          </div>
             <span id="counter"></span>
         </div>
         <div id="wiki" onClick={countClicks}></div>
