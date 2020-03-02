@@ -91,7 +91,7 @@ export default function DetailedExpansionPanel() {
         <ExpansionPanelActions>
           <Button size="small" >Cancel</Button>
           <Button size="small" color="primary" onClick={renderStartingPage}>
-            Save
+            Start
           </Button>
         </ExpansionPanelActions>
       </ExpansionPanel>

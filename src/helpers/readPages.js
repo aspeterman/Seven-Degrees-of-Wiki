@@ -10,12 +10,14 @@ const getWikis = () => {
       .then(function(parseBody){
       var data=[];
       for(var i=0 ;i<parseBody.items.length;i++){
-          data.push([parseBody.items[i].timestamp,parseBody.items[i]]);
+        //   data.push([parseBody.items[i].timestamp,parseBody.items[i]]);
+            data.push([parseBody.items[i].article])
       }
       console.log(data);
+      window.location=data[0]
       })
       .catch(function (err){
   });
 }
-
-export default getWikis
+getWikis()
+// export default getWikis

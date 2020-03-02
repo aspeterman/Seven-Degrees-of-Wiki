@@ -1,8 +1,15 @@
 import React, {Component} from 'react'
+import {
+BrowserRouter as Router,
+Switch,
+Route,
+Link
+} from "react-router-dom";
 import SearchList from './components/SearchList'
 import Form from './components/Form'
 import GetStarted from './components/GetStarted';
 import SideBar from './components/SideBar'
+import ShowTheLocationWithRouter from './components/location'
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -35,11 +42,15 @@ class App extends React.Component {
   render() {
     return (
       <div className='container'>
+
+        <Router basename="/localhost:3001/wiki" forceRefresh={true}>
         <h1>Kevin Bacon's 7 Degrees of Freedom</h1>
         <SideBar />
+        <ShowTheLocationWithRouter/>
         <Form onChange={this.addNewResult} />
         <SearchList query={this.state.data} />
         <GetStarted/>
+        </Router>
       </div>
     )
   }
