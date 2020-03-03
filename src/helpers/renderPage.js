@@ -3,20 +3,25 @@ import ShowTheLocationWithRouter from '../components/location'
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
+import getLinks from './getLinks'
 
   const renderStartingPage = (props) => {
-
-
-console.log(this.props)
+    // constructor(props) {
+    //   super(props)
+    //   this.state = {
+    //     article : '',
+    //     url: ''
+    //   };
+    // }
 
 
     if(!document.getElementById('origin').textContent) alert('generate data first')
     else {
 
-      var location = document.getElementById('origin').innerText
-      window.location = location
+// var rand = Math.floor(Math.random(arr.length))
 
-    axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${window.location}`, {
+    // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${page}`, {
+    axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${document.getElementById('origin').innerText}`, {
     // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&title=hello&text=%7B%7BProject%3ASandbox%7D%7D&prop=text&contentmodel=wikitext`, {
       params: {
         datatype: 'jsonp',
@@ -28,8 +33,10 @@ console.log(this.props)
       const resData = Object.values(data.data.parse.text);
       console.log(resData);
 
+
       document.getElementById('wiki').innerHTML = resData;
       // ShowTheLocationWithRouter()
     })
+    .then(getLinks)
   }}
 export default renderStartingPage

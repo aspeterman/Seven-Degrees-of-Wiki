@@ -1,5 +1,6 @@
 import getRandom from '../helpers/getRandom'
 import renderStartingPage from '../helpers/renderPage'
+
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -11,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import GetStarted from './GetStarted'
+import countClicks from '../helpers/countClicks'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,8 +55,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function DetailedExpansionPanel() {
+
+export default function SideBar() {
   const classes = useStyles();
+
 
   return (
     <div className={classes.root}>
@@ -95,6 +100,8 @@ export default function DetailedExpansionPanel() {
           </Button>
         </ExpansionPanelActions>
       </ExpansionPanel>
+      <div id="wiki" onClick={countClicks}></div>
+      {/* <GetStarted /> */}
     </div>
   );
 }

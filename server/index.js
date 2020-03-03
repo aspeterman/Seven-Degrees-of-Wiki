@@ -151,30 +151,33 @@
 
 
 const express = require("express");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-// const users = require("./routes/user");
-const cors = require('cors')
+const user = require("../db/models/Users");
+const InitiateMongoServer = require("../db/index.js");
+
+// Initiate Mongo Server
+InitiateMongoServer();
 
 const app = express();
-// Bodyparser middleware
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
-app.use(bodyParser.json());
-app.use(cors)
-// const db = "mongodb://localhost:27017/wiki";
-// mongoose
-//   .connect(
-//     db,
-//     { useNewUrlParser: true }
-//   )
-//   .then(() => console.log("MongoDB successfully connected"))
-//   .catch(err => console.log(err));
 
-// Routes
-// app.use("/api/users", users);
-const port = process.env.PORT || 8000;
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+// PORT
+const PORT = process.env.PORT || 4000;
+
+// Middleware
+app.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+  // res.json({ message: "API Working" });
+  console.log(res)
+});
+
+/**
+ * Router Middleware
+ * Router - /user/*
+ * Method - *
+ */
+app.use("/user", user);
+
+app.listen(PORT, (req, res) => {
+  console.log(`Server Started at PORT ${PORT}`);
+});
