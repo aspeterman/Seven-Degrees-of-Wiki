@@ -9,23 +9,51 @@ class GetStarted extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      start: '',
+      start: 'wikipedia',
       isVisible: null,
       count: 7
     };
   }
 
-  componentWillMount() {
-    renderStartingPage('hello')
+  componentDidMount() {
+    renderStartingPage(this.state.start)
   }
-handleClick = e => {
-  this.setState({
-    isVisible: e.currentTarget.dataset,
-    count: this.count - 1
-  });
+// handleClick = e => {
+//   this.setState({
+//     isVisible: e.currentTarget.dataset,
+//     count: this.count - 1
+//   });
+//   countClicks()
+//   alert(this.state.isVisible);
+// };
+
+handleSearch = (event) => {
+  // const fullUrl = event.target.value;
+  // fullUrl = 'localhost:3001/' + this.state.start
+  // this.setState({start: event.target.value});
+  // let noSpaceText = event.target.value.replace(/\s/,'%20');
+  // if(!noSpaceText) {
+  //   this.props.onChange(null);
+  //   return;
+  // }
+  // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${this.state.start}`, {
+  //   params: {
+  //       protocol: 'https',
+  //       hostname: 'example.com',
+  //       pathname: '/some/path',
+  //       query: {
+  //         page: 1,
+  //         format: 'json'
+  //       }
+
+  //   }
+  // })
+  // .then((resp) => {
+  //   // this.props.onChange(resp.data);
+  //   console.log(resp.data)
+  // })
   countClicks()
-  alert(this.state.isVisible);
-};
+}
 // async handleClick() {
 //   axios.all([
 //     axios.get("https://en.wikipedia.org//w/api.php?action=query&format=json&prop=mapdata%7Cpageviews&list=random&meta=&rnnamespace=0", {

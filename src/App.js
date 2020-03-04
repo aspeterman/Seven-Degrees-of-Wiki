@@ -13,13 +13,15 @@ import SearchList from './components/SearchList'
 import Form from './components/Form'
 import GetStarted from './components/GetStarted';
 import SideBar from './components/SideBar'
-import ShowTheLocationWithRouter from './components/location'
+import Child from './components/Child'
+import Profile from './components/Profile'
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data : [],
-      page: ''
+      page: '',
+      links: []
     };
     this.normalizeData = (rawData) => {
       return rawData[1].map(function(title, index) {
@@ -43,6 +45,8 @@ class App extends React.Component {
     }
   };
 
+
+
   render() {
     return (
       // <div className='container'>
@@ -50,34 +54,30 @@ class App extends React.Component {
       //   <Router basename="/localhost:3001/wiki" forceRefresh={true}>
       //   <h1>Kevin Bacon's 7 Degrees of Freedom</h1>
       //   <SideBar />
-      //   <ShowTheLocationWithRouter/>
       //   <Form onChange={this.addNewResult} />
       //   <SearchList query={this.state.data} />
       //   <GetStarted/>
       //   </Router>
       // </div>
       <div>
+      <Router>
+      <h2>Wikipedia</h2>
       <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/secret">Secret</Link></li>
-        <li><Link to="/login">Login</Link></li>
-        {/* <li><Link to="/">Home</Link></li> */}
-        <li><Link to="/GetStarted">Get Started</Link></li>
-        <li><Link to="/Search">Search</Link></li>
+        <li><Link to="/search">Search</Link></li>
+        <li><Link to="/wiki">Play</Link></li>
+        <li><Link to="/">Begin</Link></li>
       </ul>
 
-      <Switch>
-        <Route path="/" exact component={SideBar} />
-        <Route path="/secret" component={withAuth(Secret)} />
-        <Route path="/login" component={Login} />
-        <Route path="/GetStarted" component={GetStarted} />
-        <Route path="/Search" component={SearchList} />
-      </Switch>
-      <GetStarted />
-      <SideBar />
-      <Form onChange={this.addNewResult} />
-      <SearchList query={this.state.data} />    </div>
-    )
+      <Route path="/:id" component={Child}/>
+      <Route path="/wiki/:id" component={Profile}/>
+      <Route path="/wiki/:id" component={SideBar}/>
+    </Router>
+    <SearchList query={this.state.data} />
+    <Form onChange={this.addNewResult} />
+    <GetStarted />
+    <SideBar />
+      </div>
+  )
   }
 }
 

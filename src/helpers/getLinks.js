@@ -32,8 +32,9 @@ var url = "https://en.wikipedia.org/w/api.php";
 var params = {
     action: "query",
     format: "json",
-    titles: "Albert Einstein",
+    titles: null,
     prop: "links"
+
 };
 
 url = url + "?origin=*";
@@ -49,13 +50,10 @@ fetch(url)
                 arr.push(l.title)
             }
         }
-        for(var id in pages) {
-          console.log(pages[id])
-          // for (var ed of pages[id]){
-          //   console.log(ed)
-          // }
-        }
+        return arr
     })
+    // .then(document.getElementById('damn').innerHTML=arr.map(ed =>  <li>{ed}</li>))
+    // .then(res => window.location =`localhost:3001/${arr[0]}`)
     .catch(function(error){console.log(error);});
     console.log(arr)
     return arr

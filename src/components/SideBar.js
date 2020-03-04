@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import GetStarted from './GetStarted'
 import countClicks from '../helpers/countClicks'
+import Profile from './Profile'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -77,7 +78,7 @@ export default function SideBar() {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
           <div className={classes.column} >
-            <span id="origin"  />
+            <span id="origin" >Wikipedia</span>
           </div>
           <div className={classes.column}>
             <span id="end" />
@@ -95,12 +96,16 @@ export default function SideBar() {
         <Divider />
         <ExpansionPanelActions>
           <Button size="small" >Cancel</Button>
-          <Button size="small" color="primary" onClick={renderStartingPage}>
+          <Button size="small" color="primary" onClick={countClicks}>
             Start
           </Button>
+          {/* <Button size="small" color="primary" onClick={Profile}>
+            Start
+          </Button> */}
         </ExpansionPanelActions>
       </ExpansionPanel>
-      <div id="wiki" onClick={countClicks}></div>
+      {/* <div id="wiki" onClick={countClicks}></div> */}
+
       {/* <GetStarted /> */}
     </div>
   );
