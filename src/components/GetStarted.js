@@ -11,13 +11,32 @@ class GetStarted extends React.Component {
     this.state = {
       start: 'wikipedia',
       isVisible: null,
-      count: 7
+      count: 7,
+      result: []
     };
   }
 
   componentDidMount() {
-    renderStartingPage(this.state.start)
-  }
+    // renderStartingPage(this.state.start)
+    var arr = []
+    var result = []
+    // var apiEndpoint = "https://commons.wikimedia.org/w/api.php";
+    var apiEndpoint = "https://en.wikipedia.org/w/api.php"
+    var params = `action=parse&format=json&page=${document.getElementById('origin').innerText}`;
+
+    axios.get(apiEndpoint + "?" + params + "&origin=*")
+  // axios.get('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&list=alllinks%7Cquerypage&plnamespace=0&qppage=DisambiguationPages&page=wiki')
+        .then(response => response)
+        .then(data => {
+          // const resData = Object.values(data.data.parse.text);
+          // console.log(resData)
+           data.data.parse.links.map(x=> arr.push(Object.values(x)))
+          //  console.log(arr)
+           result.push(arr.map(y=>y[2]))
+           this.setState({links: arr.map(y=>y[2])})
+  })
+}
+
 // handleClick = e => {
 //   this.setState({
 //     isVisible: e.currentTarget.dataset,
@@ -106,7 +125,16 @@ handleSearch = (event) => {
         <div id="sidebar">
             <span id="counter"></span>
         </div>
-        <div id="wiki" onClick={this.handleClick}></div>
+        <div id="wiki">
+          {this.state.results.map(links => {
+            return(
+
+            <ul>
+              <li>{links}</li>
+            </ul>
+            )
+          })}
+        </div>
       </div>
     )
   }

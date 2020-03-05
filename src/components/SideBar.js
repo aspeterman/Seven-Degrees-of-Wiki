@@ -96,7 +96,7 @@ export default function SideBar() {
         <Divider />
         <ExpansionPanelActions>
           <Button size="small" >Cancel</Button>
-          <Button size="small" color="primary" onClick={countClicks}>
+          <Button size="small" color="primary" onClick={renderStartingPage}>
             Start
           </Button>
           {/* <Button size="small" color="primary" onClick={Profile}>
@@ -104,7 +104,10 @@ export default function SideBar() {
           </Button> */}
         </ExpansionPanelActions>
       </ExpansionPanel>
-      {/* <div id="wiki" onClick={countClicks}></div> */}
+      <div id="wiki">
+        <h1>Start</h1>
+        <button  onClick={countClicks}>Press Me!</button>
+      </div>
 
       {/* <GetStarted /> */}
     </div>

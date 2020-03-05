@@ -19,11 +19,12 @@ import getLinks from './getLinks'
         page: searchParams || '',
       };
     }
-    const { page } = props;
-    const { query } = getParams(page);
-
+    // const { page } = props;
+    // const { query } = getParams(page);
+    var arr=[]
     var apiEndpoint = "https://commons.wikimedia.org/w/api.php";
-var params = `action=parse&format=json&page=${document.getElementById('pages').innerText}` ||`action=parse&format=json&page=Wikipedia`;
+    var params = `action=parse&text={{PAGENAME}}&title=${document.getElementById('origin').innerText}`;
+// var params = `action=parse&format=json&page=${document.getElementById('pages').innerText}` ||`action=parse&format=json&page=Wikipedia`;
 
 /**
  * Send the request to get the images
@@ -37,12 +38,16 @@ axios.get(apiEndpoint + "?" + params + "&origin=*")
     //       });
     .then(response => response)
     .then(data => {
-      const resData = Object.values(data.data.parse.text);
+      const resData = data.data.link
+      // const result = data.data.map(arr.push())
+// console.log(resData.json())
+console.log(data.data.link)
 
-      console.log(resData)
+      // console.log(resData)
 
 
       document.getElementById('wiki').innerHTML = resData;
+      document.getElementById('wiki').onClick=(console.log(data.data));
       // getLinks()
       // ShowTheLocationWithRouter()
     })

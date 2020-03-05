@@ -70,12 +70,12 @@ class App extends React.Component {
 
       <Route path="/:id" component={Child}/>
       <Route path="/wiki/:id" component={Profile}/>
-      <Route path="/wiki/:id" component={SideBar}/>
+      <Route path="/" component={SideBar}/>
     </Router>
     <SearchList query={this.state.data} />
     <Form onChange={this.addNewResult} />
     <GetStarted />
-    <SideBar />
+    {/* <SideBar /> */}
       </div>
   )
   }
