@@ -18,18 +18,18 @@ function countClicks(e) {
 // axios.get('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&list=alllinks%7Cquerypage&plnamespace=0&qppage=DisambiguationPages&page=wiki')
       .then(response => response)
       .then(data => {
-        // const resData = Object.values(data.data.parse.text);
+        const resData = Object.values(data.data.parse.text);
         // console.log(resData)
-         data.data.parse.links.map(x=> arr.push(Object.values(x)))
+        //  data.data.parse.links.map(x=> arr.push(Object.values(x)))
         //  console.log(arr)
-         result.push(arr.map(y=>y[2]))
-         console.log(result)
+        //  result.push(arr.map(y=>y[2]))
+        //  console.log(result)
           // console.log(Object.values(x)))
 
 
-        // document.getElementById('damn').innerHTML = resData;
+        document.getElementById('wiki').innerHTML = resData;
         // ShowTheLocationWithRouter()
-        renderStartingPage()
+        // renderStartingPage()
       })
 
   console.log(count)

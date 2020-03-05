@@ -61,7 +61,7 @@ class App extends React.Component {
       // </div>
       <div>
       <Router>
-      <h2>Wikipedia</h2>
+      <h2></h2>
       <ul>
         <li><Link to="/search">Search</Link></li>
         <li><Link to="/wiki">Play</Link></li>

@@ -1,7 +1,7 @@
 import getRandom from '../helpers/getRandom'
 import renderStartingPage from '../helpers/renderPage'
 
-import React from 'react';
+import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -56,38 +56,45 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+class SideBar extends React.Component {
+// export default function SideBar() {
+  constructor(props) {
 
-export default function SideBar() {
-  const classes = useStyles();
+    super(props)
+    this.state = {
 
+    }
+  }
+  classes = useStyles()
 
+render(){
   return (
-    <div className={classes.root}>
+    <div className={this.classes.root}>
       <ExpansionPanel defaultExpanded>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1c-content"
           id="panel1c-header"
         >
-          <div className={classes.column}>
-            <Typography className={classes.heading}>Starting Page</Typography>
+          <div className={this.classes.column}>
+            <Typography className={this.classes.heading}>Starting Page</Typography>
           </div>
-          <div className={classes.column}>
-            <Typography className={classes.secondaryHeading}>Destination</Typography>
+          <div className={this.classes.column}>
+            <Typography className={this.classes.secondaryHeading}>Destination</Typography>
           </div>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.details}>
-          <div className={classes.column} >
-            <span id="origin" >Wikipedia</span>
+        <ExpansionPanelDetails className={this.classes.details}>
+          <div className={this.classes.column} >
+            <span id="origin" ></span>
           </div>
-          <div className={classes.column}>
+          <div className={this.classes.column}>
             <span id="end" />
           </div>
-          <div className={clsx(classes.column, classes.helper)}>
+          <div className={clsx(this.classes.column, this.classes.helper)}>
             <Typography variant="caption">
               Start Your Kevin Bacon
               <br />
-              <a href="#secondary-heading-and-columns" className={classes.link} onClick={getRandom}>
+              <a href="#secondary-heading-and-columns" className={this.classes.link} onClick={getRandom}>
                 Generate
               </a>
             </Typography>
@@ -96,7 +103,7 @@ export default function SideBar() {
         <Divider />
         <ExpansionPanelActions>
           <Button size="small" >Cancel</Button>
-          <Button size="small" color="primary" onClick={renderStartingPage}>
+          <Button size="small" color="primary" onClick={countClicks}>
             Start
           </Button>
           {/* <Button size="small" color="primary" onClick={Profile}>
@@ -105,11 +112,12 @@ export default function SideBar() {
         </ExpansionPanelActions>
       </ExpansionPanel>
       <div id="wiki">
-        <h1>Start</h1>
-        <button  onClick={countClicks}>Press Me!</button>
+
       </div>
 
       {/* <GetStarted /> */}
     </div>
-  );
+  )}
 }
+
+export default SideBar
