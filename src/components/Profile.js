@@ -42,7 +42,7 @@ class Profile extends React.Component {
         // .then(res => window.location =`localhost:3001/${arr[0]}`)
         .catch(function(error){console.log(error);});
         console.log(this.state)
-        countClicks()
+        // countClicks()
         return arr
 
 
@@ -75,7 +75,8 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <div onClick={countClicks}>
+      // <div onClick={countClicks}>
+      <div>
       <ul>
 
       </ul>

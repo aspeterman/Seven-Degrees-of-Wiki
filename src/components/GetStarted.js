@@ -2,6 +2,7 @@
 // import React, {Component} from 'react'
 import countClicks from '../helpers/countClicks'
 import renderStartingPage from '../helpers/renderPage'
+import getOne from '../helpers/getOne'
 var axios = require('axios')
 var React = require('react');
 var SideBar = require('./SideBar')
@@ -9,7 +10,7 @@ class GetStarted extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      start: 'wikipedia',
+      start: 'this',
       isVisible: null,
       count: 7,
       result: []
@@ -17,14 +18,17 @@ class GetStarted extends React.Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  componentDidUpdate() {
-    // renderStartingPage(this.state.start)
-    var arr = []
+  componentDidMount() {
+    // countClicks(this.state.start)
+    getOne()
+      var arr = []
     // var result = []
     // var apiEndpoint = "https://commons.wikimedia.org/w/api.php";
     var apiEndpoint = "https://en.wikipedia.org/w/api.php"
     var params = `action=parse&format=json&page=${this.state.start}`;
     // var params = `action=parse&format=json&page=${document.getElementById('origin').innerText}`;
+    // this.setState(start = document.getElementById('origin').innerText)
+
 
     axios.get(apiEndpoint + "?" + params + "&origin=*")
   // axios.get('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&list=alllinks%7Cquerypage&plnamespace=0&qppage=DisambiguationPages&page=wiki')
@@ -67,6 +71,7 @@ handleClick (e) {
             <span id="counter"></span>
         </div>
         <div id="wiki">
+          <h1>{this.state.start}</h1>
           {this.state.result.map(links => {
             return(
 
@@ -77,6 +82,7 @@ handleClick (e) {
             )
           })}
         </div>
+
       </div>
     )
   }

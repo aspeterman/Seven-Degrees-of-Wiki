@@ -74,7 +74,7 @@ class App extends React.Component {
     </Router>
     <SearchList query={this.state.data} />
     <Form onChange={this.addNewResult} />
-    <GetStarted />
+    {/* <GetStarted /> */}
     {/* <SideBar /> */}
       </div>
   )

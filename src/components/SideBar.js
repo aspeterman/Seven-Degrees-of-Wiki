@@ -56,45 +56,38 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-class SideBar extends React.Component {
+const SideBar = function() {
 // export default function SideBar() {
-  constructor(props) {
 
-    super(props)
-    this.state = {
+  const classes = useStyles()
 
-    }
-  }
-  classes = useStyles()
-
-render(){
   return (
-    <div className={this.classes.root}>
+    <div className={classes.root}>
       <ExpansionPanel defaultExpanded>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1c-content"
           id="panel1c-header"
         >
-          <div className={this.classes.column}>
-            <Typography className={this.classes.heading}>Starting Page</Typography>
+          <div className={classes.column}>
+            <Typography className={classes.heading}>Starting Page</Typography>
           </div>
-          <div className={this.classes.column}>
-            <Typography className={this.classes.secondaryHeading}>Destination</Typography>
+          <div className={classes.column}>
+            <Typography className={classes.secondaryHeading}>Destination</Typography>
           </div>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={this.classes.details}>
-          <div className={this.classes.column} >
+        <ExpansionPanelDetails className={classes.details}>
+          <div className={classes.column} >
             <span id="origin" ></span>
           </div>
-          <div className={this.classes.column}>
+          <div className={classes.column}>
             <span id="end" />
           </div>
-          <div className={clsx(this.classes.column, this.classes.helper)}>
+          <div className={clsx(classes.column, classes.helper)}>
             <Typography variant="caption">
               Start Your Kevin Bacon
               <br />
-              <a href="#secondary-heading-and-columns" className={this.classes.link} onClick={getRandom}>
+              <a href="#secondary-heading-and-columns" className={classes.link} onClick={getRandom}>
                 Generate
               </a>
             </Typography>
@@ -115,9 +108,9 @@ render(){
 
       </div>
 
-      {/* <GetStarted /> */}
+      <GetStarted />
     </div>
   )}
-}
+
 
 export default SideBar
