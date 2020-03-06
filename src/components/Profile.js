@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import countClicks from '../helpers/countClicks'
-import getLinks from '../helpers/getLinks'
+// import getLinks from '../helpers/getLinks'
 class Profile extends React.Component {
   state = {
     page: null,
@@ -38,7 +38,7 @@ class Profile extends React.Component {
 
           })
           .then(this.setState({linker: arr}))
-        .then(document.getElementById('damn').innerHTML=this.state.linker.map(links =>  <li>{links.arr}</li>))
+        .then(document.getElementById('wiki').innerHTML=this.state.linker.map(links =>  <li>{links.arr}</li>))
         // .then(res => window.location =`localhost:3001/${arr[0]}`)
         .catch(function(error){console.log(error);});
         console.log(this.state)
@@ -75,8 +75,8 @@ class Profile extends React.Component {
 
   render() {
     return (
-      // <div onClick={countClicks}>
       <div>
+      {/* <button onClick={getLinks}>get links</button> */}
       <ul>
 
       </ul>

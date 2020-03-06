@@ -2,9 +2,10 @@ import axios from 'axios'
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
-import getLinks from './getLinks'
+import getRandom from './getRandom'
 
   const renderStartingPage = (props) => {
+    console.log(props)
     // constructor(props) {
     //   super(props)
     //   this.state = {
@@ -12,45 +13,38 @@ import getLinks from './getLinks'
     //     url: ''
     //   };
     // }
-    function getParams(page) {
-      const searchParams = document.getElementById('pages')
-      // const searchParams = document.getElementById('pages')
-      return {
-        page: searchParams || '',
-      };
-    }
-    // const { page } = props;
-    // const { query } = getParams(page);
-    var arr=[]
-    var apiEndpoint = "https://commons.wikimedia.org/w/api.php";
-    var params = `action=parse&text={{PAGENAME}}&title=${document.getElementById('origin').innerText}`;
-// var params = `action=parse&format=json&page=${document.getElementById('pages').innerText}` ||`action=parse&format=json&page=Wikipedia`;
+    // function getParams(page) {
+//       const searchParams = document.getElementById('pages')
+//       // const searchParams = document.getElementById('pages')
+//       return {
+//         page: searchParams || '',
+//       };
+//     }
+//     // const { page } = props;
+//     // const { query } = getParams(page);
+//     var arr=[]
+//     var apiEndpoint = "https://wikimedia.org/w/api.php";
 
-/**
- * Send the request to get the images
- */
-axios.get(apiEndpoint + "?" + params + "&origin=*")
-    // .then(function(response){return response.json();})
-    // .then(function(response) {
-    //       var allimages = response.query.allimages; // Process the output to get the image names
-    //       Object.keys(allimages).forEach(function(key) {
-    //            console.log(allimages[key].name);
-    //       });
-    .then(response => response)
-    .then(data => {
-      const resData = data.data.link
-      // const result = data.data.map(arr.push())
-// console.log(resData.json())
-console.log(data.data.link)
+//         var params = `action=parse&format=json&page=${document.getElementById('origin').innerText}`;
+// // var params = `action=parse&format=json&page=${document.getElementById('pages').innerText}` ||`action=parse&format=json&page=Wikipedia`;
 
-      // console.log(resData)
+// /**
+//  * Send the request to get the images
+//  */
+// axios.get(apiEndpoint + "?" + params + "&origin=*")
+
+//     .then(response => response)
+//     .then(data => {
+//       const resData = Object.values(data.data.parse.text);
+// console.log(resData)
 
 
-      document.getElementById('wiki').innerHTML = resData;
-      document.getElementById('wiki').onClick=(console.log(data.data));
-      // getLinks()
-      // ShowTheLocationWithRouter()
-    })
+
+//       document.getElementById('wiki').innerHTML = resData;
+//       document.getElementById('wiki').onClick=(console.log(data.data));
+//       // getLinks()
+//       // ShowTheLocationWithRouter()
+//     })
 
     // if(!document.getElementById('origin').textContent) alert('generate data first')
     // else {
@@ -58,24 +52,28 @@ console.log(data.data.link)
 // var rand = Math.floor(Math.random(arr.length))
 
     // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=wikipedia`, {
-    // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${document.getElementById('origin').innerText}`, {
-    // // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&title=${query}`, {
-    //   params: {
-    //     datatype: 'jsonp',
-    //     // origin: '*',
-    //     headers: {"Access-Control-Allow-Origin": "*"}
-    //   }
-    // })
-    // .then(response => response)
-    // .then(data => {
-    //   const resData = Object.values(data.data.parse.text);
-    //   console.log(resData);
+
+      // buildArticleURL = function(article) {
+
+      //   // return "https://" + this.hostname + "/wiki/" + encodeURIComponent(article.replace(/ /g, "_"));
+
+      // }
+    axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${document.getElementById('origin').innerText}`, {
+    // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&title=${query}`, {
+      params: {
+        datatype: 'jsonp',
+        origin: '*',
+        headers: {"Access-Control-Allow-Origin": "*"}
+      }
+    })
+    .then(response => response)
+    .then(data => {
+      const resData = Object.values(data.data.parse.text);
 
 
-    //   document.getElementById('wiki').innerHTML = resData;
-    //   // ShowTheLocationWithRouter()
-    // })
-    // .then(getLinks)
-  // }
-}
+      document.getElementById('wiki').innerHTML = resData;
+      // ShowTheLocationWithRouter()
+    })
+  }
+
 export default renderStartingPage

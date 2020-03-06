@@ -6,28 +6,30 @@ import getOne from '../helpers/getOne'
 var axios = require('axios')
 var React = require('react');
 var SideBar = require('./SideBar')
+var getRandom = require('../helpers/getRandom')
 class GetStarted extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      start: 'this',
+      start: '',
       isVisible: null,
       count: 7,
-      result: []
+      result: [],
     };
-    this.handleClick = this.handleClick.bind(this)
+    // this.handleClick = this.handleClick.bind(this)
   }
 
-  componentDidMount() {
-    // countClicks(this.state.start)
-    getOne()
+  async componentDidMount() {
+    this.setState({state: document.getElementById('origin').innerText})
+
+    console.log(this.props.start)
+    // getOne()
       var arr = []
     // var result = []
     // var apiEndpoint = "https://commons.wikimedia.org/w/api.php";
     var apiEndpoint = "https://en.wikipedia.org/w/api.php"
-    var params = `action=parse&format=json&page=${this.state.start}`;
+    var params = `action=parse&format=json&page=${this.props.start}`;
     // var params = `action=parse&format=json&page=${document.getElementById('origin').innerText}`;
-    // this.setState(start = document.getElementById('origin').innerText)
 
 
     axios.get(apiEndpoint + "?" + params + "&origin=*")
@@ -36,27 +38,42 @@ class GetStarted extends React.Component {
         .then(data => {
           // const resData = Object.values(data.data.parse.text);
           // console.log(resData)
+          this.state.start === ''? this.setState({start: 'wiki'}) :
            data.data.parse.links.map(x=> arr.push(Object.values(x)))
           //  console.log(arr)
           //  result.push(arr.map(y=>y[2]))
            this.setState({result: arr.map(y=>y[2])})
+  }).then((resp) => {
+    // this.props.onChange(resp.data.parse.title);
+    // this.setState({start: this.props.start})
   })
 }
-handleClick (e) {
-  // e.preventDefault()
-  this.setState({start: e.target.innerText})
-  // this.forceUpdate()
-  console.log(this.state)
+// handleClick (e) {
+//   // e.preventDefault()
+//   this.setState({start: e.target.innerText})
+//   // this.forceUpdate()
+//   console.log(this.state)
+//       countClicks()
+
+// }
+
+sendData = () => {
+  this.setState({state: document.getElementById('origin').innerText})
+  this.props.setStartPage(this.state.start);
+
 }
 
-// handleClick = e => {
-//   this.setState({
-//     isVisible: e.currentTarget.dataset,
-//     count: this.count - 1
-//   });
-//   countClicks()
-//   alert(this.state.isVisible);
-// };
+handleClick = e => {
+  // e.preventDefault()
+  this.setState({
+    isVisible: e.currentTarget.dataset,
+    start: e.target.href,
+    count: this.count - 1
+  });
+  console.log(this.state.start)
+
+  document.getElementById('origin').innerText=this.state.start
+};
 
 
 
@@ -71,16 +88,25 @@ handleClick (e) {
             <span id="counter"></span>
         </div>
         <div id="wiki">
-          <h1>{this.state.start}</h1>
+          {/* <h1>{this.state.start}</h1> */}
           {this.state.result.map(links => {
             return(
 
             <ul>
               {/* <li><a target="#" href={`https://www.wikipedia.com/api/w/api?action=parse&format=json&page=${links}`} >{links}</a></li> */}
-              <li><a href={links} onClick={this.handleClick} value={links}>{links}</a></li>
+              <li><a href={links} onClick={this.handleClick} value={this.props.start}>{links}</a></li>
             </ul>
             )
           })}
+          {/* {this.state.result.map(links => {
+            return(
+
+            <ul> */}
+              {/* <li><a target="#" href={`https://www.wikipedia.com/api/w/api?action=parse&format=json&page=${links}`} >{links}</a></li> */}
+              {/* <li><a href={links} onClick={this.handleClick} value={this.state.start}>{links}</a></li>
+            </ul>
+            )
+          })} */}
         </div>
 
       </div>

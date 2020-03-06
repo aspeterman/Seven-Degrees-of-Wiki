@@ -55,9 +55,10 @@
 //     console.log(word);
 //   }
 // }
-import axios from 'axios'
-
-const getEndpoints = () => {
+// import axios from 'axios'
+const axios = require('axios')
+const getEndpoints = (e) => {
+  e.preventDefault()
   axios.all([
     axios.get("https://en.wikipedia.org//w/api.php?action=query&format=json&prop=mapdata%7Cpageviews&list=random&meta=&rnnamespace=0", {
     params: {

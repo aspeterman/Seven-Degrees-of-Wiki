@@ -20,7 +20,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       data : [],
-      page: '',
+      start: '',
       links: []
     };
     this.normalizeData = (rawData) => {
@@ -40,8 +40,8 @@ class App extends React.Component {
       const searchResult = this.normalizeData(queryResult)
       this.setState({ data: searchResult });
     }
-    this.setStartPage = (start) => {
-      this.setState({page: start})
+    this.setStartPage = (page) => {
+      this.setState({start: page})
     }
   };
 
@@ -49,33 +49,38 @@ class App extends React.Component {
 
   render() {
     return (
-      // <div className='container'>
+      <div className='container'>
 
-      //   <Router basename="/localhost:3001/wiki" forceRefresh={true}>
+      {/* //   <Router basename="/localhost:3001/wiki" forceRefresh={true}>
       //   <h1>Kevin Bacon's 7 Degrees of Freedom</h1>
       //   <SideBar />
       //   <Form onChange={this.addNewResult} />
       //   <SearchList query={this.state.data} />
       //   <GetStarted/>
       //   </Router>
-      // </div>
+      // </div> */}
       <div>
       <Router>
-      <h2></h2>
+      <h2>Degrees of Kevin Bacon</h2>
       <ul>
         <li><Link to="/search">Search</Link></li>
-        <li><Link to="/wiki">Play</Link></li>
-        <li><Link to="/">Begin</Link></li>
+        <li><Link to="/">Play</Link></li>
+        <li><Link to="/solver">Solver</Link></li>
+        <li><Link to="/profile">Profile</Link></li>
       </ul>
 
-      <Route path="/:id" component={Child}/>
-      <Route path="/wiki/:id" component={Profile}/>
-      <Route path="/" component={SideBar}/>
+      <Route path="/#:id" component={GetStarted}/>
+      <Route path="/wiki/#:id" component={GetStarted}/>
+      {/* <Route path="/" component={SideBar}/> */}
+      <Route path="/" component={GetStarted}/>
+      <Route path="/profile" component={Profile}/>
     </Router>
-    <SearchList query={this.state.data} />
     <Form onChange={this.addNewResult} />
-    {/* <GetStarted /> */}
+    <SearchList query={this.state.data} />
+    <SideBar start={this.state.start}/>
+    <GetStarted start={this.state.start}/>
     {/* <SideBar /> */}
+      </div>
       </div>
   )
   }

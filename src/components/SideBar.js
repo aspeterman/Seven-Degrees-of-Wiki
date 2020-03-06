@@ -56,11 +56,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SideBar = function() {
+const SideBar = function(props) {
 // export default function SideBar() {
-
+console.log(props.start)
   const classes = useStyles()
+const handleClick =e => {
+  e.persist()
+  renderStartingPage()
+  props.start = document.getElementById('origin').innerText
 
+}
   return (
     <div className={classes.root}>
       <ExpansionPanel defaultExpanded>
@@ -78,7 +83,7 @@ const SideBar = function() {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
           <div className={classes.column} >
-            <span id="origin" ></span>
+  <span id="origin" >{props.start}</span>
           </div>
           <div className={classes.column}>
             <span id="end" />
@@ -96,7 +101,7 @@ const SideBar = function() {
         <Divider />
         <ExpansionPanelActions>
           <Button size="small" >Cancel</Button>
-          <Button size="small" color="primary" onClick={countClicks}>
+          <Button size="small" color="primary" onClick={handleClick}>
             Start
           </Button>
           {/* <Button size="small" color="primary" onClick={Profile}>
@@ -108,7 +113,7 @@ const SideBar = function() {
 
       </div>
 
-      <GetStarted />
+      {/* <GetStarted /> */}
     </div>
   )}
 
