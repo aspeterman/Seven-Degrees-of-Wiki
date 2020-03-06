@@ -1,6 +1,6 @@
-import axios from 'axios'
-import renderStartingPage from './renderPage';
-import React from 'react'
+// import axios from 'axios'
+// import renderStartingPage from './renderPage';
+// import React from 'react'
 
 
 var count = 7
@@ -26,11 +26,12 @@ function countClicks(start) {
 //       })
 
   console.log(count)
-  // document.getElementById('counter').innerHTML = `Moves left: ${count}`
+  document.getElementById('counter').innerHTML = `Moves left: ${count}`
 
   if(count<=0) {
     alert('You failed! Try again?')
-    // document.getElementById('wiki').innerHTML=''
+    document.getElementById('wiki').innerHTML=''
+    window.location = 'https://localhost:3000/'
     count=7
   }
 

@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React from 'react'
 // import axios from 'axios'
 // import countClicks from '../helpers/countClicks'
-// import getLinks from '../helpers/getLinks'
+import getLinks from './getLinks'
 class Profile extends React.Component {
   state = {
     page: null,
@@ -17,7 +17,6 @@ class Profile extends React.Component {
         format: "json",
         titles: handle,
         prop: "links"
-
     };
 
     url = url + "?origin=*";
@@ -76,7 +75,7 @@ class Profile extends React.Component {
   render() {
     return (
       <div>
-      {/* <button onClick={getLinks}>get links</button> */}
+      <button onClick={getLinks}>get links</button>
       <ul>
 
       </ul>

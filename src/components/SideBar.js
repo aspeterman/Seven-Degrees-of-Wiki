@@ -3,6 +3,7 @@ import renderStartingPage from '../helpers/renderPage'
 
 import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import {browserHistory} from 'react'
 import clsx from 'clsx';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -12,9 +13,14 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import GetStarted from './GetStarted'
-import countClicks from '../helpers/countClicks'
-import Profile from './Profile'
+import { createHashHistory } from 'history'
+
+
+const history = createHashHistory()
+
+// import GetStarted from './GetStarted'
+// import countClicks from '../helpers/countClicks'
+// import Profile from './Profile'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -60,21 +66,29 @@ const SideBar = function(props, {history}) {
 // export default function SideBar() {
 // console.log(props.history.location.pathname.slice(6).replace('_', ' '))
   const classes = useStyles()
-const handleTravel =e => {
-  console.log(props)
+const handleTravel =(e, slug) => {
+  // console.log(props)
   e.preventDefault()
-  renderStartingPage()
   document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
+  slug=e.target.href
+  // renderStartingPage()
   // this.forceUpdate()
   e.persist()
-}
-const handleClick =(e) => {
-  // console.log(props.history.location.pathname.slice(6).replace('_', ' '))
-  console.log(props.match.params)
-  e.preventDefault()
+  // history.push(document.getElementById('origin').innerText)
 
+}
+const handleClick =async(e, slug) => {
+  // console.log(props.history.location.pathname.slice(6).replace('_', ' '))
+  document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
+
+  e.preventDefault()
   e.persist()
+  // slug=e.target.href
+  // document.getElementById('origin').innerHTML = encodeURIComponent(slug)
   renderStartingPage()
+  // history.push(document.getElementById('origin').innerText)
+  // console.log(props)
+
 }
   return (
     <div className={classes.root}>
@@ -93,7 +107,7 @@ const handleClick =(e) => {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
           <div className={classes.column} >
-  <span id="origin" >{props.start}</span>
+          <div id="origin" >{props.start}</div>
           </div>
           <div className={classes.column}>
             <span id="end" />
@@ -114,9 +128,7 @@ const handleClick =(e) => {
           <Button size="small" color="primary" onClick={handleClick}>
             Start
           </Button>
-          {/* <Button size="small" color="primary" onClick={Profile}>
-            Start
-          </Button> */}
+
         </ExpansionPanelActions>
       </ExpansionPanel>
       <div id="wiki" onClick={handleTravel}>
