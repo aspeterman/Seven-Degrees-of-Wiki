@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {browserHistory} from 'react'
 import clsx from 'clsx';
+import countClicks from '../helpers/countClicks'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -16,7 +17,6 @@ import Divider from '@material-ui/core/Divider';
 import { createHashHistory } from 'history'
 
 
-const history = createHashHistory()
 
 // import GetStarted from './GetStarted'
 // import countClicks from '../helpers/countClicks'
@@ -27,20 +27,20 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
   heading: {
-    fontSize: theme.typography.pxToRem(30),
+    fontSize: theme.typography.pxToRem(40),
     borderBottom: `2px solid ${theme.palette.divider}`,
 
   },
   secondaryHeading: {
-    fontSize: theme.typography.pxToRem(30),
+    fontSize: theme.typography.pxToRem(40),
     borderBottom: `2px solid ${theme.palette.divider}`,
 
     // color: theme.palette.text.secondary,
   },
   icon: {
     verticalAlign: 'bottom',
-    height: 20,
-    width: 20,
+    height: 40,
+    width: 40,
   },
   details: {
     alignItems: 'center',
@@ -69,9 +69,12 @@ const SideBar = function(props, {history}) {
 const handleTravel =(e, slug) => {
   // console.log(props)
   e.preventDefault()
-  document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
+  // document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
+
+  renderStartingPage()
+  document.getElementById('origin').innerHTML = encodeURIComponent(props.location.pathname)
+
   slug=e.target.href
-  // renderStartingPage()
   // this.forceUpdate()
   e.persist()
   // history.push(document.getElementById('origin').innerText)
@@ -79,13 +82,18 @@ const handleTravel =(e, slug) => {
 }
 const handleClick =async(e, slug) => {
   // console.log(props.history.location.pathname.slice(6).replace('_', ' '))
-  document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
-
   e.preventDefault()
-  e.persist()
+  renderStartingPage()
+
+  // document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
+  console.log(encodeURIComponent(props.location.pathname))
+  // document.getElementById('origin').innerHTML = encodeURIComponent(props.location.pathname)
+
+
+  // e.persist()
   // slug=e.target.href
   // document.getElementById('origin').innerHTML = encodeURIComponent(slug)
-  renderStartingPage()
+  // countClicks(lang, slug)
   // history.push(document.getElementById('origin').innerText)
   // console.log(props)
 

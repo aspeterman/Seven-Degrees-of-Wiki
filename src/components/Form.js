@@ -1,4 +1,7 @@
 import axios from 'axios'
+import Input from "@material-ui/core/Input";
+import SearchIcon from '@material-ui/icons/Search';
+
 var React = require('react');
 
 class Form extends React.Component {
@@ -32,7 +35,7 @@ class Form extends React.Component {
   render() {
     return (
       <form>
-        <input style={{margin: '10px 0px', width: '75%'}}
+        <Input style={{margin: '10px 0px', width: '25%',  display: 'block'}}
         value={this.state.querySearch}
         onChange={this.handleSearch}
         type="text"

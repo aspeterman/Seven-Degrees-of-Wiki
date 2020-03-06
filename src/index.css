@@ -18,6 +18,18 @@ code {
   border-radius: 10px;
 }
 
+.main-nav {
+  width: 100%;
+  display: inline-block;
+  list-style-type: none;
+  background-color: #dddddd;
+  padding: 10px;
+}
+
+li {
+  float: left;
+  padding: 10px;
+}
 #sidebar {
 
 }

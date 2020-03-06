@@ -1,6 +1,5 @@
 // import axios from 'axios'
 // import React, {Component} from 'react'
-// import countClicks from '../helpers/countClicks'
 // import renderStartingPage from '../helpers/renderPage'
 // import getOne from '../helpers/getOne'
 var axios = require('axios')
@@ -32,7 +31,6 @@ class GetStarted extends React.Component {
     var apiEndpoint = "https://en.wikipedia.org/w/api.php"
     var params = `action=parse&format=json&page=${this.props.start}`;
     // var params = `action=parse&format=json&page=${document.getElementById('origin').innerText}`;
-
 
     axios.get(apiEndpoint + "?" + params + "&origin=*")
   // axios.get('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&list=alllinks%7Cquerypage&plnamespace=0&qppage=DisambiguationPages&page=wiki')
