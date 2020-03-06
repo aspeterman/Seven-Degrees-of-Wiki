@@ -67,6 +67,7 @@ import getRandom from './getRandom'
       }
     })
     .then(response => response)
+
     .then(data => {
       const resData = Object.values(data.data.parse.text);
 

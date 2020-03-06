@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import axios from 'axios'
-import countClicks from '../helpers/countClicks'
+// import axios from 'axios'
+// import countClicks from '../helpers/countClicks'
 // import getLinks from '../helpers/getLinks'
 class Profile extends React.Component {
   state = {
@@ -15,7 +15,7 @@ class Profile extends React.Component {
     var params = {
         action: "query",
         format: "json",
-        titles: null,
+        titles: handle,
         prop: "links"
 
     };
@@ -29,7 +29,7 @@ class Profile extends React.Component {
             var pages = response.query.pages;
             for (var p in pages) {
                 for (var l of pages[p].links) {
-
+                  document.getElementById('wiki').innerHTML+=l.title
                     console.log(l.title);
                     arr.push(l.title)
                 }
@@ -38,10 +38,10 @@ class Profile extends React.Component {
 
           })
           .then(this.setState({linker: arr}))
-        .then(document.getElementById('wiki').innerHTML=this.state.linker.map(links =>  <li>{links.arr}</li>))
+        .then(document.getElementById('wiki').HTML+=this.state.linker.map(links =>  <li>{links.arr}</li>))
         // .then(res => window.location =`localhost:3001/${arr[0]}`)
         .catch(function(error){console.log(error);});
-        console.log(this.state)
+        // console.log(this.state)
         // countClicks()
         return arr
 

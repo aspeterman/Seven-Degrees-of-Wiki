@@ -56,15 +56,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SideBar = function(props) {
+const SideBar = function(props, {history}) {
 // export default function SideBar() {
-console.log(props.start)
+// console.log(props.history.location.pathname.slice(6).replace('_', ' '))
   const classes = useStyles()
-const handleClick =e => {
+const handleTravel =e => {
+  console.log(props)
+  e.preventDefault()
+  renderStartingPage()
+  document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
+  // this.forceUpdate()
+  e.persist()
+}
+const handleClick =(e) => {
+  // console.log(props.history.location.pathname.slice(6).replace('_', ' '))
+  console.log(props.match.params)
+  e.preventDefault()
+
   e.persist()
   renderStartingPage()
-  props.start = document.getElementById('origin').innerText
-
 }
   return (
     <div className={classes.root}>
@@ -109,7 +119,7 @@ const handleClick =e => {
           </Button> */}
         </ExpansionPanelActions>
       </ExpansionPanel>
-      <div id="wiki">
+      <div id="wiki" onClick={handleTravel}>
 
       </div>
 

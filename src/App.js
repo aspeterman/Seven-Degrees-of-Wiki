@@ -71,13 +71,13 @@ class App extends React.Component {
 
       <Route path="/#:id" component={GetStarted}/>
       <Route path="/wiki/#:id" component={GetStarted}/>
-      {/* <Route path="/" component={SideBar}/> */}
+      <Route path="/" component={SideBar}/>
       <Route path="/" component={GetStarted}/>
       <Route path="/profile" component={Profile}/>
     </Router>
     <Form onChange={this.addNewResult} />
     <SearchList query={this.state.data} />
-    <SideBar start={this.state.start}/>
+    {/* <SideBar props={this.state.start}/> */}
     <GetStarted start={this.state.start}/>
     {/* <SideBar /> */}
       </div>
