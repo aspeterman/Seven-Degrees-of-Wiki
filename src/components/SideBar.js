@@ -64,23 +64,10 @@ const SideBar = function(props, {history}) {
 // export default function SideBar() {
 // console.log(props.history.location.pathname.slice(6).replace('_', ' '))
   const classes = useStyles()
-const handleTravel =(e, slug) => {
-  // console.log(props)
-  e.preventDefault()
-  // document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
 
-  renderStartingPage()
-  document.getElementById('origin').innerHTML = props.location.pathname
-
-  slug=e.target.href
-  // this.forceUpdate()
-  e.persist()
-  // history.push(document.getElementById('origin').innerText)
-
-}
 const handleClick =async(e, slug) => {
   // console.log(props.history.location.pathname.slice(6).replace('_', ' '))
-  document.getElementById('origin').innerHTML = props.location.pathname
+  props.location.pathname = document.getElementById('origin').innerHTML
   e.preventDefault()
   renderStartingPage()
 

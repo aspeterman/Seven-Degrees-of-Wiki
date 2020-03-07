@@ -69,7 +69,7 @@ class App extends React.Component {
       <Router>
       <div>
         <Route path="/" component={WikiSetup} />
-        <Route path="/:title" component={WikiGameHistory}/>
+        {/* <Route path="/:title" component={WikiGameHistory}/> */}
       </div>
     </Router>,
       <Router>

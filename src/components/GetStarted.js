@@ -11,7 +11,7 @@ class GetStarted extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      link: '',
+      url: '',
       isVisible: null,
       count: 7,
       result: [],
@@ -34,19 +34,19 @@ class GetStarted extends React.Component {
     console.log(this.props)
     // var params = `action=parse&format=json&page=${document.getElementById('origin').innerText}`;
 
-    axios.get(apiEndpoint + "?" + params + "&origin=*")
-  // axios.get('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&list=alllinks%7Cquerypage&plnamespace=0&qppage=DisambiguationPages&page=wiki')
-        .then(response => response)
-        .then(data => {
+  //   axios.get(apiEndpoint + "?" + params + "&origin=*")
+  // // axios.get('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&list=alllinks%7Cquerypage&plnamespace=0&qppage=DisambiguationPages&page=wiki')
+  //       .then(response => response)
+  //       .then(data => {
 
-          if(!this.state.start) console.log('error')
-           data.data.parse.links.map(x=> arr.push(Object.values(x)))
-          //  console.log(arr)
-          //  result.push(arr.map(y=>y[2]))
-           this.setState({result: arr.map(y=>y[2])})
-  }).then((resp) => {
-    // this.setState({start: this.props.start})
-  })
+  //         if(!this.state.start) console.log('error')
+  //          data.data.parse.links.map(x=> arr.push(Object.values(x)))
+  //         //  console.log(arr)
+  //         //  result.push(arr.map(y=>y[2]))
+  //          this.setState({result: arr.map(y=>y[2])})
+  // }).then((resp) => {
+  //   // this.setState({start: this.props.start})
+  // })
   console.log(this.props.history.location.pathname)
 
 }
@@ -67,33 +67,32 @@ sendData = () => {
 }
 
 
+ apiEndpoint = "https://en.wikipedia.org/w/api.php"
+ params = `action=parse&format=json&page=${this.props.history.location.pathname}`;
 componentDidUpdate() {
   // this.props.history.location.pathname = document.getElementById('origin').innerText;
 
   document.title = `You clicked ${this.state.count} times`;
-  var apiEndpoint = "https://en.wikipedia.org/w/api.php"
-  var params = `action=parse&format=json&page=${this.props.history.location.pathname}`;
   console.log(this.props)
-  // var params = `action=parse&format=json&page=${document.getElementById('origin').innerText}`;
 
-//   axios.get(apiEndpoint + "?" + params + "&origin=*")
-// // axios.get('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&list=alllinks%7Cquerypage&plnamespace=0&qppage=DisambiguationPages&page=wiki')
-//       .then(response => response)
-//       .then(data => {
-//         const resData = Object.values(data.data.parse.text);
+  axios.get(this.apiEndpoint + "?" + this.params + "&origin=*")
+// axios.get('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&list=alllinks%7Cquerypage&plnamespace=0&qppage=DisambiguationPages&page=wiki')
+      .then(response => response)
+      .then(data => {
+        const resData = Object.values(data.data.parse.text);
 
 
-//         document.getElementById('wiki').innerHTML = resData;
-//         // ShowTheLocationWithRouter()
-//       })
+        document.getElementById('wiki').innerHTML = resData;
+        // ShowTheLocationWithRouter()
+      })
 }
 handleClick =(e, slug) => {
   // console.log(props)
-  e.preventDefault()
+  // e.preventDefault()
   // document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
   console.log(this.props)
   // this.props.history.location.pathname.push(document.getElementById('origin').innerText)
-  renderStartingPage()
+  // renderStartingPage()
   // document.getElementById('origin').innerHTML = this.props.history.location.pathname
 
   slug=e.target.href
@@ -126,7 +125,8 @@ handleClick =(e, slug) => {
       };
       return (
         <Link to={link}>
-          <Button>Start with {this.state.title}</Button>
+          <Button>Start with {this.props.location.pathname}</Button>
+          {/* <Button>Start with {this.state.title}</Button> */}
         </Link>
       );
     } else {
@@ -137,6 +137,7 @@ handleClick =(e, slug) => {
 
 <button onClick={() => this.setState({ count: this.state.count + 1 })}>Click</button>
             <h1>{this.props.location.pathname}</h1>
+            <button onClick={()=> this.setState({url: this.props.history.location.pathname})}>Location</button>
           <div id="wiki" onClick={this.handleClick}>
           {/* {this.state.result.map(links => {
 
