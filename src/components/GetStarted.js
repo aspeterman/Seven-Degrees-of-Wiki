@@ -1,35 +1,37 @@
 // import axios from 'axios'
-// import React, {Component} from 'react'
-// import renderStartingPage from '../helpers/renderPage'
-// import getOne from '../helpers/getOne'
+import React, { useState, useEffect } from 'react'
+import renderStartingPage from '../helpers/renderPage'
+import WikiApi from './WikiApi'
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 var axios = require('axios')
-var React = require('react');
 // var SideBar = require('./SideBar')
 // var getRandom = require('../helpers/getRandom')
 class GetStarted extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      start: '',
+      link: '',
       isVisible: null,
       count: 7,
       result: [],
     };
-    // this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  async componentDidMount() {
-        window.onpopstate = function() { window.location.reload(); };
+  addTitle(title) {
+    var titles = this.props.location.state.titles;
+    if (titles.indexOf(title) < 0) {
+      this.props.history.push(title, { titles: titles.concat([title]) });
+    }
+  }  async componentDidMount() {
 
-    this.setState({state: document.getElementById('origin').innerText})
-
-    console.log(this.props.start)
-    // getOne()
       var arr = []
     // var result = []
-    // var apiEndpoint = "https://commons.wikimedia.org/w/api.php";
+    var apiEndpoint = "https://commons.wikimedia.org/w/api.php";
     var apiEndpoint = "https://en.wikipedia.org/w/api.php"
-    var params = `action=parse&format=json&page=${this.props.start}`;
+    var params = `action=parse&format=json&page=${this.props.history.location.pathname}`;
+    console.log(this.props)
     // var params = `action=parse&format=json&page=${document.getElementById('origin').innerText}`;
 
     axios.get(apiEndpoint + "?" + params + "&origin=*")
@@ -37,16 +39,18 @@ class GetStarted extends React.Component {
         .then(response => response)
         .then(data => {
 
-          this.state.start === '' ? console.log('error') :
+          if(!this.state.start) console.log('error')
            data.data.parse.links.map(x=> arr.push(Object.values(x)))
           //  console.log(arr)
           //  result.push(arr.map(y=>y[2]))
            this.setState({result: arr.map(y=>y[2])})
   }).then((resp) => {
     // this.setState({start: this.props.start})
-    // this.props.onChange(resp.data.parse.title);
   })
+  console.log(this.props.history.location.pathname)
+
 }
+
 // handleClick (e) {
 //   // e.preventDefault()
 //   this.setState({start: e.target.href})
@@ -56,12 +60,48 @@ class GetStarted extends React.Component {
 
 // }
 
-// sendData = () => {
-//   // this.setState({state: document.getElementById('origin').innerText})
-//   this.props.setStartPage(this.state.start);
+sendData = () => {
+  // this.setState({state: document.getElementById('origin').innerText})
+  this.props.setStartPage(this.state.start);
 
-// }
+}
 
+
+componentDidUpdate() {
+  // this.props.history.location.pathname = document.getElementById('origin').innerText;
+
+  document.title = `You clicked ${this.state.count} times`;
+  var apiEndpoint = "https://en.wikipedia.org/w/api.php"
+  var params = `action=parse&format=json&page=${this.props.history.location.pathname}`;
+  console.log(this.props)
+  // var params = `action=parse&format=json&page=${document.getElementById('origin').innerText}`;
+
+//   axios.get(apiEndpoint + "?" + params + "&origin=*")
+// // axios.get('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&list=alllinks%7Cquerypage&plnamespace=0&qppage=DisambiguationPages&page=wiki')
+//       .then(response => response)
+//       .then(data => {
+//         const resData = Object.values(data.data.parse.text);
+
+
+//         document.getElementById('wiki').innerHTML = resData;
+//         // ShowTheLocationWithRouter()
+//       })
+}
+handleClick =(e, slug) => {
+  // console.log(props)
+  e.preventDefault()
+  // document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
+  console.log(this.props)
+  // this.props.history.location.pathname.push(document.getElementById('origin').innerText)
+  renderStartingPage()
+  // document.getElementById('origin').innerHTML = this.props.history.location.pathname
+
+  slug=e.target.href
+  // this.forceUpdate()
+  e.persist()
+  // history.push(document.getElementById('origin').innerText)
+
+}
 // handleClick = e => {
 //   e.preventDefault()
 //   this.setState({
@@ -79,37 +119,36 @@ class GetStarted extends React.Component {
 
   render(){
     // console.log(this.state)
+        if (this.state.title) {
+      var link = {
+        pathname: this.state.title,
+        state: { titles: [this.state.title] },
+      };
+      return (
+        <Link to={link}>
+          <Button>Start with {this.state.title}</Button>
+        </Link>
+      );
+    } else {
 
     return(
       <div>
 
-        <div id="sidebar">
-            <span id="counter"></span>
-        </div>
-        <div id="wiki">
-          <h1>{this.state.start}</h1>
-          {this.state.result.map(links => {
-            return(
+
+<button onClick={() => this.setState({ count: this.state.count + 1 })}>Click</button>
+            <h1>{this.props.location.pathname}</h1>
+          <div id="wiki" onClick={this.handleClick}>
+          {/* {this.state.result.map(links => {
 
             <ul>
               <li><a target="_blank" href={`https://www.wikipedia.com/api/w/api?action=parse&format=json&page=${links}`} >{links}</a></li>
-              <li><a href={links} onClick={this.handleClick} value={this.props.start}>{links}</a></li>
+              <li><a href={links} onClick={this.handleClick} value={this.props.match.url}>{links}</a></li>
             </ul>
-            )
-          })}
-          {/* {this.state.result.map(links => {
-            return(
-
-            <ul> */}
-              {/* <li><a target="#" href={`https://www.wikipedia.com/api/w/api?action=parse&format=json&page=${links}`} >{links}</a></li> */}
-              {/* <li><a href={links} onClick={this.handleClick} value={this.state.start}>{links}</a></li>
-            </ul>
-            )
           })} */}
         </div>
+        </div>
 
-      </div>
-    )
+    )}
   }
 
 }

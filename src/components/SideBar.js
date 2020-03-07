@@ -14,8 +14,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import { createHashHistory } from 'history'
-
 
 
 // import GetStarted from './GetStarted'
@@ -72,7 +70,7 @@ const handleTravel =(e, slug) => {
   // document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
 
   renderStartingPage()
-  document.getElementById('origin').innerHTML = encodeURIComponent(props.location.pathname)
+  document.getElementById('origin').innerHTML = props.location.pathname
 
   slug=e.target.href
   // this.forceUpdate()
@@ -82,11 +80,12 @@ const handleTravel =(e, slug) => {
 }
 const handleClick =async(e, slug) => {
   // console.log(props.history.location.pathname.slice(6).replace('_', ' '))
+  document.getElementById('origin').innerHTML = props.location.pathname
   e.preventDefault()
   renderStartingPage()
 
   // document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
-  console.log(encodeURIComponent(props.location.pathname))
+
   // document.getElementById('origin').innerHTML = encodeURIComponent(props.location.pathname)
 
 
@@ -137,11 +136,10 @@ const handleClick =async(e, slug) => {
             Start
           </Button>
 
+
         </ExpansionPanelActions>
       </ExpansionPanel>
-      <div id="wiki" onClick={handleTravel}>
 
-      </div>
 
       {/* <GetStarted /> */}
     </div>
