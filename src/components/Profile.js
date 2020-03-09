@@ -1,7 +1,6 @@
 import React from 'react'
 // import axios from 'axios'
 // import countClicks from '../helpers/countClicks'
-import getLinks from './getLinks'
 class Profile extends React.Component {
   state = {
     page: null,
@@ -75,7 +74,7 @@ class Profile extends React.Component {
   render() {
     return (
       <div>
-      <button onClick={getLinks}>get links</button>
+      <button onClick={console.log('pressed')}>get links</button>
       <ul>
 
       </ul>

@@ -1,7 +1,7 @@
 var React = require('react');
 
 const Search = (props) => {
-  console.log(props.start)
+  console.log(props.title)
   return (
     <div className='result'>
       <div className='bubble'>

@@ -23,7 +23,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       data : [],
-      start: '',
+      title: '',
       links: []
     };
     this.normalizeData = (rawData) => {
@@ -37,14 +37,12 @@ class App extends React.Component {
     }
     this.addNewResult = (queryResult) => {
       if(queryResult === null) {
-        this.setState({data: []})
+        this.setState({data: [], title: ''})
         return;
       }
       const searchResult = this.normalizeData(queryResult)
       this.setState({ data: searchResult });
-    }
-    this.setStartPage = (page) => {
-      this.setState({start: page})
+      this.setState({title: searchResult})
     }
   };
 
@@ -76,32 +74,32 @@ class App extends React.Component {
     <header>
       <span className="icn-logo"><i className="material-icons">
       <ul className="main-nav">
-        <li><Link to="/search" activeClassName="active">Search</Link></li>
+        <li><Link to="/search" >Search</Link></li>
         {/* <li><Link to="/" activeStyle={{color: 'red'}}>Play</Link></li> */}
         {/* <Link to="/solver">Solver</Link> */}
         <li><Link to="/">Profile</Link></li>
         <li><Link to="/play">Get Started</Link></li>
         <li><Link to="/login">Login</Link></li>
         <li><Link to="/register">Register</Link></li>
-        {/* <li><Link to="/">Wikirace</Link></li>
-        <li><Link to="/:title">History</Link></li> */}
+        <li><Link to="/">Wikirace</Link></li>
+        <li><Link to="/:title">History</Link></li>
       </ul></i></span>
       <Router path="/search" component={Form}>
-        <Form onChange={this.addNewResult} />
+        <Form onChange={this.addNewResult}  />
         <SearchList query={this.state.data} />
       </Router>
       <Route path="/profile" component={Profile}/>
-      <Route path="/" component={SideBar}/>
-      <Route path="/play" component={GetStarted}/>
+      {/* <Route path="/" component={SideBar}/> */}
+      <Route path="/" component={GetStarted}/>
       <Route path="/login" component={Auth}/>
-      <Route path="/" exact component={GetStarted}/>
+      {/* <Route path="/" exact component={WikiSetup}/> */}
+      {/* <Route path="/:title" exact component={WikiGameHistory}/> */}
       </header>
 
     </Router>
 
     {/* <SideBar props={this.state.start}/> */}
-    {/* <GetStarted /> */}
-    {/* <SideBar /> */}
+
       </div>
       </div>
   )

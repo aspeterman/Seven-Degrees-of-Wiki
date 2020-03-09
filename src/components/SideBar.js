@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {browserHistory} from 'react'
 import clsx from 'clsx';
-import countClicks from '../helpers/countClicks'
+import WikiApi from './WikiApi'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -66,9 +66,9 @@ const SideBar = function(props, {history}) {
   const classes = useStyles()
 
 const handleClick =async(e, slug) => {
-  // console.log(props.history.location.pathname.slice(6).replace('_', ' '))
+  console.log(props.history.location.pathname.slice(6).replace('_', ' '))
+  // e.preventDefault()
   props.location.pathname = document.getElementById('origin').innerHTML
-  e.preventDefault()
   renderStartingPage()
 
   // document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
@@ -101,10 +101,11 @@ const handleClick =async(e, slug) => {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>
           <div className={classes.column} >
-          <div id="origin" >{props.start}</div>
+          {/* <div id="origin" >{props.link}</div> */}
+          {/* <div id="origin" >{props.location.pathname.replace(/\/+$/, '').replace(/_/g, " ")}</div> */}
           </div>
           <div className={classes.column}>
-            <span id="end" />
+            {/* <span id="end" /> */}
           </div>
           <div className={clsx(classes.column, classes.helper)}>
             <Typography variant="caption">
@@ -128,7 +129,6 @@ const handleClick =async(e, slug) => {
       </ExpansionPanel>
 
 
-      {/* <GetStarted /> */}
     </div>
   )}
 

@@ -5,7 +5,6 @@ import React from 'react'
 
 var count = 7
 
-const { createPageChain } = require("../components/getLinks");
 
 function countClicks(start) {
   count--

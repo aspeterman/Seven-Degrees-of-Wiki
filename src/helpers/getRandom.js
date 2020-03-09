@@ -57,8 +57,8 @@
 // }
 // import axios from 'axios'
 const axios = require('axios')
-const getEndpoints = (e) => {
-  e.preventDefault()
+const getEndpoints = (props) => {
+  // e.preventDefault()
   axios.all([
     axios.get("https://en.wikipedia.org//w/api.php?action=query&format=json&prop=mapdata%7Cpageviews&list=random&meta=&rnnamespace=0", {
     params: {
@@ -80,6 +80,8 @@ const getEndpoints = (e) => {
   .then(axios.spread((firstCall, secondCall) => {
     var start = firstCall.data.query.random[0].title
     document.getElementById('origin').innerHTML = start
+    document.title=start;
+    document.getElementsByClassName('"articleselect-input').innerHTML = start
     var end = secondCall.data.query.random[0].title
     document.getElementById('end').innerHTML = end })
   )}

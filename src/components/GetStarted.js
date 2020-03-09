@@ -1,12 +1,21 @@
 // import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import renderStartingPage from '../helpers/renderPage'
+import generateRandom from '../helpers/getRandom'
 import WikiApi from './WikiApi'
+import createPageChain from './getLinks'
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Divider from '@material-ui/core/Divider';
 var axios = require('axios')
 // var SideBar = require('./SideBar')
-// var getRandom = require('../helpers/getRandom')
+var getRandom = require('../helpers/getRandom')
 class GetStarted extends React.Component {
   constructor(props) {
     super(props);
@@ -19,36 +28,16 @@ class GetStarted extends React.Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  addTitle(title) {
-    var titles = this.props.location.state.titles;
-    if (titles.indexOf(title) < 0) {
-      this.props.history.push(title, { titles: titles.concat([title]) });
-    }
-  }  async componentDidMount() {
 
-      var arr = []
-    // var result = []
-    var apiEndpoint = "https://commons.wikimedia.org/w/api.php";
-    var apiEndpoint = "https://en.wikipedia.org/w/api.php"
-    var params = `action=parse&format=json&page=${this.props.history.location.pathname}`;
-    console.log(this.props)
-    // var params = `action=parse&format=json&page=${document.getElementById('origin').innerText}`;
 
-  //   axios.get(apiEndpoint + "?" + params + "&origin=*")
-  // // axios.get('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&list=alllinks%7Cquerypage&plnamespace=0&qppage=DisambiguationPages&page=wiki')
-  //       .then(response => response)
-  //       .then(data => {
 
-  //         if(!this.state.start) console.log('error')
-  //          data.data.parse.links.map(x=> arr.push(Object.values(x)))
-  //         //  console.log(arr)
-  //         //  result.push(arr.map(y=>y[2]))
-  //          this.setState({result: arr.map(y=>y[2])})
-  // }).then((resp) => {
-  //   // this.setState({start: this.props.start})
-  // })
-  console.log(this.props.history.location.pathname)
+  componentDidMount() {
 
+      // document.title = document.getElementById('origin').innerText
+      // renderStartingPage()
+generateRandom()
+  console.log(this.props)
+  // document.title = this.props.match.params.title;
 }
 
 // handleClick (e) {
@@ -60,61 +49,31 @@ class GetStarted extends React.Component {
 
 // }
 
-sendData = () => {
-  // this.setState({state: document.getElementById('origin').innerText})
-  this.props.setStartPage(this.state.start);
-
-}
-
 
  apiEndpoint = "https://en.wikipedia.org/w/api.php"
- params = `action=parse&format=json&page=${this.props.history.location.pathname}`;
+ params = `action=parse&format=json&page=${this.props.match.params.title}`;
 componentDidUpdate() {
   // this.props.history.location.pathname = document.getElementById('origin').innerText;
-
+  // this.handleClick()
   document.title = `You clicked ${this.state.count} times`;
-  console.log(this.props)
+  if(this.state.count === 0) {
+    alert('you failed!')
+    this.setSetate({count: 7})
+    generateRandom()
+  }
+    console.log(this.props)
 
-  axios.get(this.apiEndpoint + "?" + this.params + "&origin=*")
-// axios.get('https://en.wikipedia.org/w/api.php?action=query&format=json&prop=links&list=alllinks%7Cquerypage&plnamespace=0&qppage=DisambiguationPages&page=wiki')
-      .then(response => response)
-      .then(data => {
-        const resData = Object.values(data.data.parse.text);
+  renderStartingPage()
 
-
-        document.getElementById('wiki').innerHTML = resData;
-        // ShowTheLocationWithRouter()
-      })
 }
 handleClick =(e, slug) => {
-  // console.log(props)
-  // e.preventDefault()
-  // document.getElementById('origin').innerHTML = props.location.pathname.slice(6).replace('_', ' ')
+document.getElementById('origin').innerHTML = this.props.match.params.title
+renderStartingPage()
+
   console.log(this.props)
-  // this.props.history.location.pathname.push(document.getElementById('origin').innerText)
-  // renderStartingPage()
-  // document.getElementById('origin').innerHTML = this.props.history.location.pathname
+      document.title = this.props.match.params.title;
 
-  slug=e.target.href
-  // this.forceUpdate()
-  e.persist()
-  // history.push(document.getElementById('origin').innerText)
-
-}
-// handleClick = e => {
-//   e.preventDefault()
-//   this.setState({
-//     // isVisible: e.currentTarget.dataset,
-//     start: e.target.href,
-//     count: this.count - 1
-//   }, () => {
-//     console.log(this.props)
-//     // this.props.onChange(e.target.href); // check this
-//   }
-
-//   )}
-
-
+  }
 
   render(){
     // console.log(this.state)
@@ -132,13 +91,60 @@ handleClick =(e, slug) => {
     } else {
 
     return(
-      <div>
+<div >
+      <ExpansionPanel defaultExpanded>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1c-content"
+          id="panel1c-header"
+        >
+          <div >
+            <Typography >Starting Page</Typography>
+          </div>
+          <div >
+            <Typography >Destination</Typography>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails >
+          <div  >
+          {/* <div id="origin" >{props.link}</div> */}
+          <div id="origin" >{this.props.match.params.title}</div>
+          </div>
+          <div >
+            <span id="end" />
+          </div>
+          <div >
+            <Typography variant="caption">
+              Start Your Kevin Bacon
+              <br />
+              <a href="#secondary-heading-and-columns"  onClick={getRandom}>
+                Generate
+              </a>
+            </Typography>
+          </div>
+        </ExpansionPanelDetails>
+        <Divider />
+        <ExpansionPanelActions>
+          <Button size="small" >Cancel</Button>
+          <Button size="small" color="primary" onClick={this.handleClick}>
+            Start
+          </Button>
+
+
+        </ExpansionPanelActions>
+      </ExpansionPanel>
+
+
+
+
+
+
 
 
 <button onClick={() => this.setState({ count: this.state.count + 1 })}>Click</button>
-            <h1>{this.props.location.pathname}</h1>
-            <button onClick={()=> this.setState({url: this.props.history.location.pathname})}>Location</button>
-          <div id="wiki" onClick={this.handleClick}>
+            <h1>{this.props.match.params.title}</h1>
+            <button onClick={()=> this.setState({pathname: this.props.match.params.title, count: this.state.count - 1})}>Re-Render</button>
+          <div id="wiki"  >
           {/* {this.state.result.map(links => {
 
             <ul>
