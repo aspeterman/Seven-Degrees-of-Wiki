@@ -150,34 +150,61 @@
 // module.exports = app;
 
 
-const express = require("express");
-const bodyParser = require("body-parser");
-const user = require("../db/models/Users");
-const InitiateMongoServer = require("../db/index.js");
+// const express = require("express");
+// const bodyParser = require("body-parser");
+// const user = require("../db/models/Users");
+// const InitiateMongoServer = require("../db/index.js");
 
-// Initiate Mongo Server
-InitiateMongoServer();
+// // Initiate Mongo Server
+// InitiateMongoServer();
 
+// const app = express();
+
+// // PORT
+// const PORT = process.env.PORT || 4000;
+
+// // Middleware
+// app.use(bodyParser.json());
+
+// app.get("/", (req, res) => {
+//   // res.json({ message: "API Working" });
+//   console.log(res)
+// });
+
+// /**
+//  * Router Middleware
+//  * Router - /user/*
+//  * Method - *
+//  */
+// app.use("/user", user);
+
+// app.listen(PORT, (req, res) => {
+//   console.log(`Server Started at PORT ${PORT}`);
+// });
+
+﻿require('rootpath')();
+const express = require('express');
 const app = express();
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const jwt = require('../db/middleware/jwt');
+const errorHandler = require('../db/middleware/error-handler');
 
-// PORT
-const PORT = process.env.PORT || 4000;
-
-// Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
-app.get("/", (req, res) => {
-  // res.json({ message: "API Working" });
-  console.log(res)
-});
+// use JWT auth to secure the api
+app.use(jwt());
 
-/**
- * Router Middleware
- * Router - /user/*
- * Method - *
- */
-app.use("/user", user);
+// api routes
+app.use('/users', require('../db/middleware/verification'));
 
-app.listen(PORT, (req, res) => {
-  console.log(`Server Started at PORT ${PORT}`);
+// global error handler
+app.use(errorHandler);
+
+// start server
+const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
+const server = app.listen(port, function () {
+    console.log('Server listening on port ' + port);
 });

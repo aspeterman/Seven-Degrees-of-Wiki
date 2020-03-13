@@ -4,18 +4,19 @@ BrowserRouter as Router,
 Switch,
 Route,
 Link,
-NavLink
+Redirect
 } from "react-router-dom";
-import { createBrowserHistory } from "history";
+// import SevenStepsToKevinBacon from './components/index'
 // import withAuth from './components/Auth/withAuth'
 import WikiGameHistory from './components/WikiGameHistory';
 import WikiSetup from './components/WikiSetup';
+import WikiGameApp from './components/WikiGameApp'
 import SearchList from './components/SearchList'
 import Form from './components/Form'
 import GetStarted from './components/GetStarted';
-import SideBar from './components/SideBar'
-import Profile from './components/Profile'
-import Auth from './components/Auth/components/App'
+// import Profile from './components/Profile'
+// import Auth from './components/Auth/components/App'
+
 
 import WikiLinks from './components/WikiLinks'
 class App extends React.Component {
@@ -24,14 +25,20 @@ class App extends React.Component {
     this.state = {
       data : [],
       title: '',
-      links: []
+      links: [],
+      count: 7,
+      title: ''
     };
+
+
+
     this.normalizeData = (rawData) => {
       return rawData[1].map(function(title, index) {
         return {
           title: title,
           paragraph: rawData[2][index],
-          link: rawData[3][index]
+          link: rawData[3][index],
+          title: document.title
         }
       })
     }
@@ -44,64 +51,41 @@ class App extends React.Component {
       this.setState({ data: searchResult });
       this.setState({title: searchResult})
     }
+
+    this.counter = () => {
+      this.setState({count: this.count--})
+    }
   };
+  componentDidMount() {
+    this.setState({
+      pageQueue: [],
+      pageId: null,
+      title: document.getElementById('origin').innerText
+    })
+    // console.log(this.state.title)
+
+  }
 
 
-  history = createBrowserHistory();
+
 
   render() {
     return (
-      <div className='container'>
 
-      {/* //   <Router basename="/localhost:3001/wiki" forceRefresh={true}>
-      //   <h1>Kevin Bacon's 7 Degrees of Freedom</h1>
-      //   <SideBar />
-      //   <Form onChange={this.addNewResult} />
-      //   <SearchList query={this.state.data} />
-      //   <GetStarted/>
-      //   </Router>
-      // </div> */}
-      <div>
 
-      <h2>Degrees of Kevin Bacon</h2>
       <Router>
       <div>
-        <Route path="/" component={WikiSetup} />
+        <Route path="/" exact component={WikiSetup} />
         {/* <Route path="/:title" component={WikiGameHistory}/> */}
-      </div>
-    </Router>,
-      <Router>
-    <header>
-      <span className="icn-logo"><i className="material-icons">
-      <ul className="main-nav">
-        <li><Link to="/search" >Search</Link></li>
-        {/* <li><Link to="/" activeStyle={{color: 'red'}}>Play</Link></li> */}
-        {/* <Link to="/solver">Solver</Link> */}
-        <li><Link to="/">Profile</Link></li>
-        <li><Link to="/play">Get Started</Link></li>
-        <li><Link to="/login">Login</Link></li>
-        <li><Link to="/register">Register</Link></li>
-        <li><Link to="/">Wikirace</Link></li>
-        <li><Link to="/:title">History</Link></li>
-      </ul></i></span>
-      <Router path="/search" component={Form}>
         <Form onChange={this.addNewResult}  />
         <SearchList query={this.state.data} />
-      </Router>
-      <Route path="/profile" component={Profile}/>
-      {/* <Route path="/" component={SideBar}/> */}
-      <Route path="/" component={GetStarted}/>
-      <Route path="/login" component={Auth}/>
-      {/* <Route path="/" exact component={WikiSetup}/> */}
-      {/* <Route path="/:title" exact component={WikiGameHistory}/> */}
-      </header>
-
+        <GetStarted onChange={console.log(this.props)}/>
+      </div>
     </Router>
 
-    {/* <SideBar props={this.state.start}/> */}
 
-      </div>
-      </div>
+
+
   )
   }
 }

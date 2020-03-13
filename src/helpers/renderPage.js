@@ -3,11 +3,11 @@ import React from "react";
 // import PropTypes from "prop-types";
 // import { withRouter } from "react-router";
 // import getRandom from './getRandom'
-import countClicks from './countClicks'
+// import countClicks from './countClicks'
 
-  const renderStartingPage = () => {
-    // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${this.props.location.pathname.slice(1)}`, {
-    axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${document.getElementById('origin').innerText}`, {
+const renderStartingPage = (props) => {
+  const article = props.title
+    axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${article}`, {
       params: {
         // datatype: 'jsonp',
         origin: '*',
@@ -16,14 +16,14 @@ import countClicks from './countClicks'
     })
     .then(response => response)
     .then(data => {
-      const resData = Object.values(data.data.parse.text);
-
-
-      document.getElementById('damn').innerHTML = resData;
-      // ShowTheLocationWithRouter()
+      // const resData = Object.values(data.data.parse.text);
+      // document.getElementById('article-head').innerHTML = data.data.parse.title
+      // document.getElementById('content').innerHTML =  resData;
+      console.log(data)
     })
-    // countClicks()
+    // .then(console.log(this.props.location.pathname.slice(6)))
   }
+
 
 
 // import cheerio from 'cheerio'

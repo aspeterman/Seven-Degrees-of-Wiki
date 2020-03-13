@@ -84,6 +84,7 @@ const getEndpoints = (props) => {
     document.getElementsByClassName('"articleselect-input').innerHTML = start
     var end = secondCall.data.query.random[0].title
     document.getElementById('end').innerHTML = end })
-  )}
+  )
+}
 
   export default getEndpoints
