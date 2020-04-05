@@ -1,20 +1,13 @@
 import React from 'react'
 import {
 BrowserRouter as Router,
-// Switch,
 Route,
 Link,
-// Redirect
 } from "react-router-dom";
-// import SevenStepsToKevinBacon from './components/index'
-// import withAuth from './components/Auth/withAuth'
-// import WikiGameHistory from './components/WikiGameHistory';
-import WikiSetup from './components/WikiSetup';
-// import WikiGameApp from './components/WikiGameApp'
 import SearchList from './components/SearchList'
 import Form from './components/Form'
 import GetStarted from './components/GetStarted';
-import Profile from './components/Profile'
+import Home from './components/Home'
 
 
 
@@ -94,22 +87,23 @@ class App extends React.Component {
   render() {
 
     // this.checkCount()
-    console.log(this.state)
+    // console.log(this.state)
     return (
       <Router>
       <span className="icn-logo"><i className="material-icons">
       <ul className="main-nav">
-        {/* <li><Link to="/" activeStyle={{color: 'red'}}>Play</Link></li> */}
+        <li><Link to="/" activeStyle={{color: 'red'}}>Play</Link></li>
         <Link to="/solver">Solver</Link>
         <li><Link to="/">Start</Link></li>
         <li><Link to="/wiki/">Get Started</Link></li>
+        <li><Form onChange={this.addNewResult}  /></li>
       </ul></i></span>
       <div>
-        <Route path="/" exact component={WikiSetup} />
-        <WikiSetup/>
-        <Form onChange={this.addNewResult}  />
+        {/* <Route path="/" exact component={WikiSetup} /> */}
+        {/* <Route path="/:title" component={WikiGameHistory}/> */}
+        <Home/>
         <GetStarted />
-        <Route path="/:handle" component={Profile }/>
+        {/* <Route path="/:handle" component={Profile }/> */}
       </div>
         <SearchList query={this.state.data} />
     </Router>

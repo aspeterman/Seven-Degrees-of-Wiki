@@ -1,6 +1,7 @@
 var React = require('react');
 
 const Search = (props) => {
+  console.log('search')
   console.log(props.title)
   return (
     <div className='result'>

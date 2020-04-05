@@ -1,7 +1,5 @@
 import axios from 'axios'
 import Input from "@material-ui/core/Input";
-// import SearchIcon from '@material-ui/icons/Search';
-
 var React = require('react');
 
 class Form extends React.Component {
@@ -34,22 +32,14 @@ class Form extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
       <form>
-        <Input style={{margin: '10px 0px', width: '25%',  display: 'block'}}
+        <Input
         value={this.state.querySearch}
         onChange={this.handleSearch}
         type="text"
         placeholder="Search here" required /><i className="fa fa-search" aria-hidden="true"></i>
       </form>
-      <form role="search" onSubmit={(event) => this.handleChange(event)}>
-            <div className="form-group">
-              <span className="fas fa-search"></span>
-              <input type="search" className="search-input" aria-label="Search for a Wikipedia article..." placeholder="Search for a Wikipedia article..." onChange={(event) => this.handleChange(event)} value={this.state.searchInput} required />
-
-            </div>
-          </form>
-              <p>...or read a <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank" rel="noopener noreferrer">random Wikipedia article</a></p>
       </div>
     )
   }
