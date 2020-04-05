@@ -1,10 +1,10 @@
 // import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 // import renderStartingPage from '../helpers/renderPage'
 // import generateRandom from '../helpers/getRandom'
 // import WikiApi from './WikiApi'
 import { withRouter } from 'react-router-dom';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 
 import { Button } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
@@ -20,33 +20,35 @@ var axios = require('axios')
 
 // var SideBar = require('./SideBar')
 class GetStarted extends React.Component {
+  userData;
+
   constructor(props) {
     super(props);
     this.state= {
       start: '',
       end: '',
-      count: 8,
+      title:[],
       isProcessing: false,
-      pageQueue: []
+      count: 0
     };
     this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.renderStartingPage = this.renderStartingPage.bind(this)
-    this.setCurrentTitle = this.setCurrentTitle.bind(this)
-    this.addTitle = this.addTitle.bind(this)
+
   }
   static getDerivedStateFromProps(props, state) {
-    return {start: props.start };
-  }
-  changeColor = () => {
-    this.setState({start: this.props.location.pathname});
+    return {start: 'wikipedia',
+            end: 'Wiki' };
   }
 
-  apiEndpoint = "https://en.wikipedia.org/w/wiki/"
-params = `action=parse&format=json&page=wiki`;
-renderStartingPage = (props) => {
+//   apiEndpoint = "https://en.wikipedia.org/w/wiki/"
+// params = `action=parse&format=json&page=wiki`;
+renderStartingPage = (e) => {
   // this.setState({count: this.state.count - 1})
-  const article = this.props.location.pathname.slice(6).replace('_', ' ')
+  if(this.props.location.pathname === '/') this.props.location.pathname = 'wikipedia'
+  this.setState({count: this.count++})
+
+  const article = this.props.location.pathname.slice(6)
     axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${article}`, {
       params: {
         // datatype: 'jsonp',
@@ -56,56 +58,80 @@ renderStartingPage = (props) => {
     })
     .then(response => response)
     .then(data => {
-      console.log(this.props)
       const resData = Object.values(data.data.parse.text);
-      document.getElementById('article-head').innerHTML = resData
+      console.log(resData )
+      // document.getElementById('article-head').innerHTML = resData
       document.getElementById('content').innerHTML =  resData;
-    })
-    // .then(console.log(this.props.location.pathname.slice(6).replace('_', ' ')))
+    }).catch(err => new TypeError(err))
   }
 
-  addTitle(title) {
-    var pageQueue = this.props.pageQueue
-    if (pageQueue.indexOf(title) < 0) {
-      this.props.pageQueue.push(title, { pageQueue: pageQueue.concat([title]) });
-    }
-  }
+  getPage() {
+    const { handle } = this.props.match.params
+    console.log(this.props)
+    var url = "https://en.wikipedia.org/w/api.php";
 
-  setCurrentTitle(title) {
-    var pageQueue = this.props.pageQueue;
-    var index = pageQueue.indexOf(title);
-    this.props.pageQueue.push(title, { pageQueue: pageQueue.slice(0, index + 1) });
-    // console.log(this.props.title)
+    var params = {
+        action: "query",
+        headers: {"Access-Control-Allow-Origin": "*"},
+        format: "json",
+        titles: handle,
+        prop: "links",
+    };
+
+
+    url = url + "?origin=*";
+    Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
+    var arr = []
+    axios.get(url)
+        .then(function(response){return response.json();})
+        .then(function(response) {
+            var pages = response.query.pages;
+            for (var p in pages) {
+                for (var l of pages[p].links) {
+                  document.getElementById('app').innerHTML+=l.title
+                    // console.log(l.title);
+                    arr.push(l.title)
+                }
+            }
+            return arr
+
+          })
+          .then(this.setState({links: arr}))
+          .catch(err => new TypeError('couldnt get page'))
   }
   componentDidMount() {
-    console.log(this.props)
-    // ReactDOM.findDOMNode(this).scrollIntoView();
-if(this.props.location.pathname)  {
-
-    // this.setState({start: this.props.location.pathname, end: document.getElementById('end').innerText})
-    document.title = this.props.location.pathname
-    if(document.title.slice(6) === '/wiki/') {
-
-      // document.getElementById('origin').innerHTML = this.props.location.pathname.slice(6)
-    }
-    else document.getElementById('origin').innerHTML = this.props.title
-
+    this.renderStartingPage()
+    this.userData = JSON.parse(localStorage.getItem("count"))
+    localStorage.getItem("count") ? this.setState({count: this.userData.count}) : this.setState({count: 0})
 this.handleChange()
-}}
 
+}
+componentDidUpdate(nextProps, nextState) {
+  localStorage.setItem("count", JSON.stringify(nextState))
+  if(this.state.count > 7) alert('you lost')
+  // if(!currVal === prevVal) localStorage.setItem("counter", JSON.stringify(currVal))
+  console.log('update')
+  console.log(nextState)
+}
 
-async handleChange() {
-  await this.renderStartingPage()
+gameOver() {
+  if(this.state.count > 7) {
+    return (
+      <h1>You Lost</h1>
+    )
+  }
+}
+
+ async handleChange() {
+   await this.setState({count: this.userData.count + 1})
+   await this.getPage()
+  //  this.setState({count: this.count++})
+
 }
 
 handleClick =(e) => {
-
+const path = this.state.title
 console.log(this.state)
-  this.setState({start: document.getElementById('origin').innerText, end: document.getElementById('end').innerText})
-  // this.props.location.pathname = 'https://localhost:3000/'+document.getElementById('origin').innerText.replace(' ', '_')
-  // this.props.location.pathname = document.title
-
-
   axios.all([
     axios.get("https://en.wikipedia.org//w/api.php?action=query&format=json&prop=mapdata%7Cpageviews&list=random&meta=&rnnamespace=0", {
     params: {
@@ -125,22 +151,20 @@ console.log(this.state)
   .then(axios.spread((firstCall, secondCall) => {
     var start = firstCall.data.query.random[0].title
     document.getElementById('origin').innerHTML = start
-    // document.title=start;
-    // document.getElementsByClassName('"articleselect-input').innerHTML = start
+    path.push(start)
     var end = secondCall.data.query.random[0].title
-
-    this.setState({start:start, end: end})
     document.getElementById('end').innerHTML = end })
     )
-    // .then(  this.props.location.pathname = document.title      )
-    .then(this.renderStartingPage(this.props.location.pathname.slice(6)))
   }
 
 
-  render(){
-    return(
 
+
+  render(){
+
+    return(
 <div width="50%">
+<gameOver/>
 
        <ExpansionPanel defaultExpanded>
         <ExpansionPanelSummary
@@ -148,21 +172,21 @@ console.log(this.state)
           aria-controls="panel1c-content"
           id="panel1c-header"
         >
-          <div flexBasis='33.33%'>
+          <div flexbasis='33.33%'>
             <Typography fontSize="40">Starting Page</Typography >
           </div>
-          <div flexBasis='33.33%'>
+          <div flexbasis='33.33%'>
             <Typography >Destination</Typography>
           </div>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails alignItems= 'center'>
-          <div  >
-          <div id="origin" ></div>
+        <ExpansionPanelDetails>
+          <div   alignitems= 'center'>
+          <div id="origin" >{this.props.location.pathname}</div>
           </div>
           <div >
             <span id="end" />
           </div>
-          <div flexBasis='33.33%'>
+          <div flexbasis='33.33%'>
             <Typography variant="caption" >
 
               Start Your Kevin Bacon
@@ -181,8 +205,21 @@ console.log(this.state)
           </Button>
         </ExpansionPanelActions>
       </ExpansionPanel>
-      <h2 id="article-head"></h2>
-      <div id="content" width="50%" onClick={this.handleChange}></div>
+
+      <ExpansionPanel defaultExpanded>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1c-content"
+          id="panel1c-header"
+        >
+          <ExpansionPanelDetails>
+
+      <h2 id="article-head">Wikipedia Race</h2>
+      <div id="content" width="50%" onClick={this.handleChange}>{this.state.title[0]}</div>
+      <div id="wiki"></div>
+          </ExpansionPanelDetails>
+      </ExpansionPanelSummary>
+      </ExpansionPanel>
 </div>
 
 

@@ -1,13 +1,13 @@
 import axios from 'axios'
-import React from "react";
+// import React from "react";
 // import PropTypes from "prop-types";
 // import { withRouter } from "react-router";
 // import getRandom from './getRandom'
 // import countClicks from './countClicks'
 
-const renderStartingPage = (props) => {
-  const article = props.title
-    axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${article}`, {
+const renderStartingPage = ({match}) => {
+  const article = {match}
+    axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${article.url}`, {
       params: {
         // datatype: 'jsonp',
         origin: '*',

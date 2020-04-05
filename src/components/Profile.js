@@ -1,14 +1,15 @@
 import React from 'react'
-// import axios from 'axios'
+import axios from 'axios'
+import {Link} from 'react-router-dom'
 // import countClicks from '../helpers/countClicks'
 class Profile extends React.Component {
   state = {
     page: null,
-    linker: []
+    links: []
   }
   componentDidMount () {
     const { handle } = this.props.match.params
-
+    console.log(this.props)
     var url = "https://en.wikipedia.org/w/api.php";
 
     var params = {
@@ -17,6 +18,7 @@ class Profile extends React.Component {
         titles: handle,
         prop: "links"
     };
+
 
     url = url + "?origin=*";
     Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
@@ -35,26 +37,48 @@ class Profile extends React.Component {
             return arr
 
           })
-          .then(this.setState({linker: arr}))
-        .then(document.getElementById('wiki').HTML+=this.state.linker.map(links =>  <li>{links.arr}</li>))
+          .then(this.setState({links: arr}))
+        // .then(document.getElementById('content').HTML+=this.state.links.map(links =>  {
+        //   return(
+        //     <ul>
+
+        //   {/* <li>{links.arr}</li> */}
+        //     </ul>
+        //   )
+        // }
+        // ))
+
+        // .then(document.getElementById('content').HTML+=this.state.links.map(links =>  <li>{links.arr}</li>))
         // .then(res => window.location =`localhost:3001/${arr[0]}`)
-        .catch(function(error){console.log(error);});
-        // console.log(this.state)
+        // const article = this.props.match.url.slice(1)
+        // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${handle}`, {
+        //   params: {
+        //     // datatype: 'jsonp',
+        //     origin: '*',
+        //     headers: {"Access-Control-Allow-Origin": "*"}
+        //   }
+        // })
+        // .then(response => response)
+        // .then(data => {
+        //   console.log(this.props)
+        //   const resData = Object.values(data.data.parse.text);
+        //   // document.getElementById('article-head').innerHTML = resData
+        //   document.getElementById('content').innerHTML =  resData;
+        // }).catch(err => console.log(err))
+        // .catch(function(error){console.log(error);});
+        // // console.log(this.state)
         // countClicks()
-        return arr
 
 
 
     // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${handle}`,{
-    // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${document.getElementById('pages').innerText}`,{
+    // // axios.get(`https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${document.getElementById('pages').innerText}`,{
     //   method: 'GET',
-    //   mode: 'no-cors',
-    //   // origin: '*',
+    //   // mode: 'no-cors',
+    //   origin: '*',
     //   type: 'jsonp',
-    //   headers: {
-    //     'Access-Control-Allow-Origin': '*',
-    //     'Content-Type': 'application/json',
-    //   }
+    //   headers: {"Access-Control-Allow-Origin": "*"}
+
     // })
     //   .then((page) => {
     //     this.setState(() => ({ page }))
@@ -65,22 +89,26 @@ class Profile extends React.Component {
     //     console.log(resData);
 
 
-    //     document.getElementById('wiki').innerHTML = resData;
+    //     document.getElementById('content').innerHTML = resData;
     //   })
+
     }
 
+    render() {
+      return(
+        this.state.links.map(links =>  {
+          return(
 
+            <ul>
 
-  render() {
-    return (
-      <div>
-      <button onClick={console.log('pressed')}>get links</button>
-      <ul>
+          <input>{links.arr}</input>
+            </ul>
+          )
+        }
+        )
+  )
+}
 
-      </ul>
-      </div>
-    )
-  }
 }
 
 export default Profile
