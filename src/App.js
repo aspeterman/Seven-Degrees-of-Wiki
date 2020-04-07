@@ -8,6 +8,7 @@ import SearchList from './components/SearchList'
 import Form from './components/Form'
 import GetStarted from './components/GetStarted';
 import Home from './components/Home'
+import Calculator from './components/Calculator'
 
 
 
@@ -101,7 +102,8 @@ class App extends React.Component {
       <div>
         {/* <Route path="/" exact component={WikiSetup} /> */}
         {/* <Route path="/:title" component={WikiGameHistory}/> */}
-        <Home/>
+        <Calculator/>
+        {/* <Home/> */}
         <GetStarted />
         {/* <Route path="/:handle" component={Profile }/> */}
       </div>

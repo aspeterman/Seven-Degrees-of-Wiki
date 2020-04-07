@@ -1336,26 +1336,7 @@
     form.appendChild(ArticleSelectDiv1);
     form.appendChild(ArticleSelectDiv2);
     form.appendChild(submitButton);
-
-    var howItWorksParagraph = document.createElement("p");
-    howItWorksParagraph.className = "text-center";
-    var howItWorksLink = document.createElement("a");
-    howItWorksLink.target = "_blank";
-    howItWorksLink.innerHTML = "how it works";
-    howItWorksLink.href = "https://github.com/luctowers/wikimash/blob/master/readme.md#how-it-works";
-    howItWorksParagraph.appendChild(howItWorksLink);
-
-    var codeLinkParagraph = document.createElement("p");
-    codeLinkParagraph.className = "text-center";
-    var codeLink = document.createElement("a");
-    codeLink.target = "_blank";
-    codeLink.innerHTML = "code on github";
-    codeLink.href = "https://github.com/luctowers/wikimash";
-    codeLinkParagraph.appendChild(codeLink);
-
     content.appendChild(form);
-    content.appendChild(howItWorksParagraph);
-    content.appendChild(codeLinkParagraph);
 
     form.onsubmit = function() {
 
