@@ -7,10 +7,6 @@ Link,
 import SearchList from './components/SearchList'
 import Form from './components/Form'
 import GetStarted from './components/GetStarted';
-import Home from './components/Home'
-import Calculator from './components/Calculator'
-
-
 
 class App extends React.Component {
   constructor(props) {
@@ -49,11 +45,7 @@ class App extends React.Component {
 
 
   };
-    checkCount () {
 
-        if(this.state.count > 7) alert('you lost')
-
-    }
 
   addTitle(title) {
     var pageQueue = this.props.pageQueue
@@ -76,8 +68,8 @@ class App extends React.Component {
     this.setState({
       pageQueue: [],
       pageId: null,
-      title: document.getElementById('origin').innerText,
-      start: document.getElementById('origin').innerText
+      // title: document.getElementById('origin').innerText,
+      // start: document.getElementById('origin').innerText
     })
   //   console.log(this.state.count)
   }
@@ -93,8 +85,7 @@ class App extends React.Component {
       <Router>
       <span className="icn-logo"><i className="material-icons">
       <ul className="main-nav">
-        <li><Link to="/" activeStyle={{color: 'red'}}>Play</Link></li>
-        <Link to="/solver">Solver</Link>
+        {/* <Link to="/solver">Solver</Link> */}
         <li><Link to="/">Start</Link></li>
         <li><Link to="/wiki/">Get Started</Link></li>
         <li><Form onChange={this.addNewResult}  /></li>
@@ -102,9 +93,8 @@ class App extends React.Component {
       <div>
         {/* <Route path="/" exact component={WikiSetup} /> */}
         {/* <Route path="/:title" component={WikiGameHistory}/> */}
-        <Calculator/>
         {/* <Home/> */}
-        <GetStarted />
+        <Route path="/" component = {GetStarted} />
         {/* <Route path="/:handle" component={Profile }/> */}
       </div>
         <SearchList query={this.state.data} />
